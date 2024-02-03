@@ -25,10 +25,9 @@ public class VentanaPrincipal extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new AbsoluteLayout());
-        setLocationRelativeTo(null);
 
         JLabel labelTitulo = new JLabel();
-        labelTitulo.setFont(new Font("Segoe UI", 1, 26)); // NOI18N
+        labelTitulo.setFont(new Font("Segoe UI", Font.BOLD, 26)); // NOI18N
         labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         labelTitulo.setText("Servicio  de prestamos bibliotecarios");
         getContentPane().add(labelTitulo, new AbsoluteConstraints(0, 0, 890, 40));
@@ -45,13 +44,13 @@ public class VentanaPrincipal extends JFrame {
         panelAutenti.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
         panelAutenti.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                panelAutentiMouseClicked(evt);
+                panelAutentiMouseClicked();
             }
         });
         panelAutenti.setLayout(new AbsoluteLayout());
 
         JLabel labelAutenti = new JLabel();
-        labelAutenti.setFont(new Font("Segoe UI", 0, 17)); // NOI18N
+        labelAutenti.setFont(new Font("Segoe UI", Font.PLAIN, 17)); // NOI18N
         labelAutenti.setHorizontalAlignment(SwingConstants.CENTER);
         labelAutenti.setText("Autenticación de alumno");
         panelAutenti.add(labelAutenti, new AbsoluteConstraints(0, 0, 200, 30));
@@ -63,13 +62,13 @@ public class VentanaPrincipal extends JFrame {
         panelEstado.setCursor(new Cursor(Cursor.HAND_CURSOR));
         panelEstado.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                panelEstadoMouseClicked(evt);
+                panelEstadoMouseClicked();
             }
         });
         panelEstado.setLayout(new AbsoluteLayout());
 
         JLabel labelEstado = new JLabel();
-        labelEstado.setFont(new Font("Segoe UI", 0, 17)); // NOI18N
+        labelEstado.setFont(new Font("Segoe UI", Font.PLAIN, 17)); // NOI18N
         labelEstado.setHorizontalAlignment(SwingConstants.CENTER);
         labelEstado.setText("Estado");
         panelEstado.add(labelEstado, new AbsoluteConstraints(0, 0, 200, 30));
@@ -81,13 +80,13 @@ public class VentanaPrincipal extends JFrame {
         panelConLibro.setCursor(new Cursor(Cursor.HAND_CURSOR));
         panelConLibro.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                panelConLibroMouseClicked(evt);
+                panelConLibroMouseClicked();
             }
         });
         panelConLibro.setLayout(new AbsoluteLayout());
 
         JLabel labelConLibro = new JLabel();
-        labelConLibro.setFont(new Font("Segoe UI", 0, 17)); // NOI18N
+        labelConLibro.setFont(new Font("Segoe UI", Font.PLAIN, 17)); // NOI18N
         labelConLibro.setHorizontalAlignment(SwingConstants.CENTER);
         labelConLibro.setText("Consulta de libros");
         panelConLibro.add(labelConLibro, new AbsoluteConstraints(0, 0, 200, 30));
@@ -99,13 +98,13 @@ public class VentanaPrincipal extends JFrame {
         panelConPrest.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
         panelConPrest.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                panelConPrestMouseClicked(evt);
+                panelConPrestMouseClicked();
             }
         });
         panelConPrest.setLayout(new AbsoluteLayout());
 
         JLabel labelConPrest = new JLabel();
-        labelConPrest.setFont(new Font("Segoe UI", 0, 17)); // NOI18N
+        labelConPrest.setFont(new Font("Segoe UI", Font.PLAIN, 17)); // NOI18N
         labelConPrest.setHorizontalAlignment(SwingConstants.CENTER);
         labelConPrest.setText("Consulta de prestamos");
         panelConPrest.add(labelConPrest, new AbsoluteConstraints(0, 0, 200, 30));
@@ -117,13 +116,13 @@ public class VentanaPrincipal extends JFrame {
         panelPrestamo.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
         panelPrestamo.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                panelPrestamoMouseClicked(evt);
+                panelPrestamoMouseClicked();
             }
         });
         panelPrestamo.setLayout(new AbsoluteLayout());
 
         JLabel labelPrestano = new JLabel();
-        labelPrestano.setFont(new Font("Segoe UI", 0, 17)); // NOI18N
+        labelPrestano.setFont(new Font("Segoe UI", Font.PLAIN, 17)); // NOI18N
         labelPrestano.setHorizontalAlignment(SwingConstants.CENTER);
         labelPrestano.setText("Prestamos");
         panelPrestamo.add(labelPrestano, new AbsoluteConstraints(0, 0, 200, 30));
@@ -135,13 +134,13 @@ public class VentanaPrincipal extends JFrame {
         panelDevolucion.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
         panelDevolucion.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                panelDevolucionMouseClicked(evt);
+                panelDevolucionMouseClicked();
             }
         });
         panelDevolucion.setLayout(new AbsoluteLayout());
 
         JLabel labelDevolucion = new JLabel();
-        labelDevolucion.setFont(new Font("Segoe UI", 0, 17)); // NOI18N
+        labelDevolucion.setFont(new Font("Segoe UI", Font.PLAIN, 17)); // NOI18N
         labelDevolucion.setHorizontalAlignment(SwingConstants.CENTER);
         labelDevolucion.setText("Devoluciones");
         panelDevolucion.add(labelDevolucion, new AbsoluteConstraints(0, 0, 200, 30));
@@ -169,57 +168,39 @@ public class VentanaPrincipal extends JFrame {
         pack();
     }
 
-    private void panelAutentiMouseClicked(MouseEvent evt) {
+    private void panelAutentiMouseClicked() {
 
-        panelContenido.removeAll();
-        AutentiPanel estadoPanel = new AutentiPanel();
-        estadoPanel.setSize(690, 460);
-        panelContenido.add(estadoPanel);
-        panelContenido.revalidate();
-        panelContenido.repaint();
+        cambiarDePanel(new AutentiPanel());
     }
 
-    private void panelEstadoMouseClicked(MouseEvent evt) {
-        panelContenido.removeAll();
-        EstadoPanel estadoPanel = new EstadoPanel();
-        estadoPanel.setSize(690, 460);
-        panelContenido.add(estadoPanel);
-        panelContenido.revalidate();
-        panelContenido.repaint();
+    private void panelEstadoMouseClicked() {
+        cambiarDePanel(new EstadoPanel());
     }
 
-    private void panelConLibroMouseClicked(MouseEvent evt) {
-        panelContenido.removeAll();
-        ConsultaLibro consultaLibro = new ConsultaLibro();
-        consultaLibro.setSize(690, 460);
-        panelContenido.add(consultaLibro);
-        panelContenido.revalidate();
-        panelContenido.repaint();
+    private void panelConLibroMouseClicked() {
+
+        cambiarDePanel(new ConsultaLibro());
     }
 
-    private void panelConPrestMouseClicked(MouseEvent evt) {
-        panelContenido.removeAll();
-        ConsultaPrestamo consultaPrestamo = new ConsultaPrestamo();
-        consultaPrestamo.setSize(690, 460);
-        panelContenido.add(consultaPrestamo);
-        panelContenido.revalidate();
-        panelContenido.repaint();
+    private void panelConPrestMouseClicked() {
+
+        cambiarDePanel(new ConsultaPrestamo());
     }
-    private void panelPrestamoMouseClicked(MouseEvent evt) {
-        panelContenido.removeAll();
-        PrestamoPanel prestamoPanel = new PrestamoPanel();
-        prestamoPanel.setSize(690, 460);
-        panelContenido.add(prestamoPanel);
-        panelContenido.revalidate();
-        panelContenido.repaint();
+    private void panelPrestamoMouseClicked() {
+
+        cambiarDePanel(new PrestamoPanel());
     }
 
-    private void panelDevolucionMouseClicked(MouseEvent evt) {
+    private void panelDevolucionMouseClicked() {
 
+        cambiarDePanel(new DevolucionPanel());
+    }
+
+
+    private void cambiarDePanel(JPanel panel) {
         panelContenido.removeAll();
-        DevolucionPanel devolucionPanel = new DevolucionPanel();
-        devolucionPanel.setSize(690, 460);
-        panelContenido.add(devolucionPanel);
+        panel.setSize(690, 460);
+        panelContenido.add(panel);
         panelContenido.revalidate();
         panelContenido.repaint();
     }

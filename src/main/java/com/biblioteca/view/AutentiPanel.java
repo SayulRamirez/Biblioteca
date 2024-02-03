@@ -57,7 +57,7 @@ public class AutentiPanel extends JPanel {
         panelAutenti.setLayout(new AbsoluteLayout());
 
         JLabel labelAutenti = new JLabel();
-        labelAutenti.setFont(new Font("Segoe UI", 0, 17));
+        labelAutenti.setFont(new Font("Segoe UI", Font.PLAIN, 17));
         labelAutenti.setHorizontalAlignment(SwingConstants.CENTER);
         labelAutenti.setText("Autenticar");
         labelAutenti.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
