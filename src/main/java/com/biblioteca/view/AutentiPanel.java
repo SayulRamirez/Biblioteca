@@ -9,6 +9,9 @@ import java.awt.event.*;
 
 public class AutentiPanel extends JPanel {
 
+    private JTextField textDNI;
+    private JLabel labelRespuesta;
+
     /**
      * Creates new form EstadoPanel
      */
@@ -33,7 +36,7 @@ public class AutentiPanel extends JPanel {
         lableDato.setText("DIN del alumno: ");
         add(lableDato, new AbsoluteConstraints(10, 70, -1, -1));
 
-        JTextField textDNI = new JTextField();
+        textDNI = new JTextField();
         textDNI.setFont(new Font("Segoe UI", Font.PLAIN, 17)); // NOI18N
         textDNI.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent evt) {
@@ -42,7 +45,7 @@ public class AutentiPanel extends JPanel {
         });
         add(textDNI, new AbsoluteConstraints(10, 100, 130, -1));
 
-        JLabel labelRespuesta = new JLabel();
+        labelRespuesta = new JLabel();
         labelRespuesta.setFont(new Font("Segoe UI", Font.PLAIN, 17)); // NOI18N
         labelRespuesta.setForeground(new Color(255, 0, 0));
         add(labelRespuesta, new AbsoluteConstraints(10, 190, 390, 40));
@@ -67,8 +70,15 @@ public class AutentiPanel extends JPanel {
     }
 
     private void panelAutentiMouseClicked(MouseEvent evt) {
+
     }
 
     private void textDNIKeyTyped(KeyEvent evt) {
+
+        char keyChar = evt.getKeyChar();
+
+        if (Character.isLetter(keyChar)) {
+            evt.consume();
+        }
     }
 }
