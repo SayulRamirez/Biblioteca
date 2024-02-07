@@ -10,7 +10,7 @@ import java.awt.event.*;
 
 public class AutentiPanel extends JPanel {
 
-    private JTextField textDNI;
+    private JTextField textIngresoDNI;
     private JLabel labelRespuesta;
 
     /**
@@ -20,73 +20,64 @@ public class AutentiPanel extends JPanel {
         initComponents();
     }
 
-   private void initComponents() {
+    private void initComponents() {
 
         setPreferredSize(new Dimension(690, 460));
         setLayout(new AbsoluteLayout());
 
         JLabel labelTitulo = new JLabel();
-        labelTitulo.setFont(new Font("Segoe UI", Font.PLAIN, 20)); // NOI18N
+        labelTitulo.setFont(new Font("Segoe UI", Font.PLAIN, 20));
         labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         labelTitulo.setText("Autenticación del alumno");
         add(labelTitulo, new AbsoluteConstraints(0, 30, 690, -1));
 
-        JLabel lableDato = new JLabel();
+        JLabel labelIngresoDNI = new JLabel();
+        labelIngresoDNI.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+        labelIngresoDNI.setText("DIN del alumno: ");
+        add(labelIngresoDNI, new AbsoluteConstraints(10, 70, -1, -1));
 
-        lableDato.setFont(new Font("Segoe UI", Font.PLAIN, 17)); // NOI18N
-        lableDato.setText("DIN del alumno: ");
-        add(lableDato, new AbsoluteConstraints(10, 70, -1, -1));
-
-        textDNI = new JTextField();
-        textDNI.setFont(new Font("Segoe UI", Font.PLAIN, 17)); // NOI18N
-        textDNI.addKeyListener(new KeyAdapter() {
+        textIngresoDNI = new JTextField();
+        textIngresoDNI.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+        textIngresoDNI.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent evt) {
-                textDNIKeyTyped(evt);
+
+                char keyChar = evt.getKeyChar();
+
+                if (Character.isLetter(keyChar)) {
+                    evt.consume();
+                }
             }
         });
-        add(textDNI, new AbsoluteConstraints(10, 100, 130, -1));
+        add(textIngresoDNI, new AbsoluteConstraints(10, 100, 130, -1));
 
         labelRespuesta = new JLabel();
-        labelRespuesta.setFont(new Font("Segoe UI", Font.PLAIN, 17)); // NOI18N
+        labelRespuesta.setFont(new Font("Segoe UI", Font.PLAIN, 17));
         labelRespuesta.setForeground(new Color(255, 0, 0));
         add(labelRespuesta, new AbsoluteConstraints(10, 190, 390, 40));
 
-        JPanel panelAutenti = new JPanel();
-        panelAutenti.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        panelAutenti.addMouseListener(new MouseAdapter() {
+        JPanel panelAutenticar = new JPanel();
+        panelAutenticar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        panelAutenticar.setLayout(new AbsoluteLayout());
+
+        JLabel labelAutenticar = new JLabel();
+        labelAutenticar.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+        labelAutenticar.setHorizontalAlignment(SwingConstants.CENTER);
+        labelAutenticar.setText("Autenticar");
+        labelAutenticar.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        panelAutenticar.add(labelAutenticar, new AbsoluteConstraints(0, 0, 130, 30));
+
+        add(panelAutenticar, new AbsoluteConstraints(180, 100, 130, 30));
+
+        panelAutenticar.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                panelAutentiMouseClicked(evt);
+
+                String textDNI = textIngresoDNI.getText();
+
+                AlumnoController controller = new AlumnoController();
+                String respuesta = controller.estaVerificado(textDNI);
+
+                labelRespuesta.setText(respuesta);
             }
         });
-        panelAutenti.setLayout(new AbsoluteLayout());
-
-        JLabel labelAutenti = new JLabel();
-        labelAutenti.setFont(new Font("Segoe UI", Font.PLAIN, 17));
-        labelAutenti.setHorizontalAlignment(SwingConstants.CENTER);
-        labelAutenti.setText("Autenticar");
-        labelAutenti.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
-        panelAutenti.add(labelAutenti, new AbsoluteConstraints(0, 0, 130, 30));
-
-        add(panelAutenti, new AbsoluteConstraints(180, 100, 130, 30));
-    }
-
-    private void panelAutentiMouseClicked(MouseEvent evt) {
-
-        String text = textDNI.getText();
-
-        AlumnoController ac = new AlumnoController();
-        String respuesta = ac.estaVerificado(text);
-
-        labelRespuesta.setText(respuesta);
-
-    }
-
-    private void textDNIKeyTyped(KeyEvent evt) {
-
-        char keyChar = evt.getKeyChar();
-
-        if (Character.isLetter(keyChar)) {
-            evt.consume();
-        }
     }
 }

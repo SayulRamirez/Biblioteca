@@ -7,12 +7,17 @@ import javax.swing.*;
 
 public class AlumnoController {
 
-    private AlumnoServices as;
+    private final AlumnoServices alumnoServices;
 
     public AlumnoController() {
-        as = new AlumnoServicesImpl();
+        alumnoServices = new AlumnoServicesImpl();
     }
 
+    /**
+     * Busca el alumno para verificar que se encuentre en el sistema
+     * @param text DNI ingresado por el usuario
+     * @return String indicando si el alumno se encuentra en el sistema o no
+     */
     public String estaVerificado(String text) {
 
         long dni;
@@ -24,6 +29,6 @@ public class AlumnoController {
             throw new RuntimeException(e.getMessage());
         }
 
-        return as.buscarAlumno(dni);
+        return alumnoServices.buscarAlumno(dni);
     }
 }

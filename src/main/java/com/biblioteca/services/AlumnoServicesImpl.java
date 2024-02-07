@@ -8,7 +8,7 @@ import com.biblioteca.services.interfaces.AlumnoServices;
 
 public class AlumnoServicesImpl implements AlumnoServices {
 
-    private AlumnoDAO alumnoDAO;
+    private final AlumnoDAO alumnoDAO;
 
     public AlumnoServicesImpl() {
         alumnoDAO = new AlumnoDAOImpl();
