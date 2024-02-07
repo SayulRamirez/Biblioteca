@@ -1,5 +1,6 @@
 package com.biblioteca.view;
 
+import com.biblioteca.controller.AlumnoController;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 
@@ -70,6 +71,13 @@ public class AutentiPanel extends JPanel {
     }
 
     private void panelAutentiMouseClicked(MouseEvent evt) {
+
+        String text = textDNI.getText();
+
+        AlumnoController ac = new AlumnoController();
+        String respuesta = ac.estaVerificado(text);
+
+        labelRespuesta.setText(respuesta);
 
     }
 
