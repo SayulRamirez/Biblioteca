@@ -15,10 +15,11 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="${db.url}"/>
-            <property name="javax.persistence.jdbc.user" value="${db.username}"/>
-            <property name="javax.persistence.jdbc.password" value="${db.password}"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/hibernate_biblioteca"/>
+            <property name="javax.persistence.jdbc.user" value="admin01"/>
+            <property name="javax.persistence.jdbc.password" value="admin01"/>
 
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
     </persistence-unit>
