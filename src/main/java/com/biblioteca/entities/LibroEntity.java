@@ -1,11 +1,20 @@
 package com.biblioteca.entities;
 
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "libros")
 public class LibroEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String titulo;
+    @ManyToOne
+    @Column(name = "autor_id")
     private AutorEntity autor;
+    @Column(name = "num_existencias")
     private Integer numeroExistencias;
 
     public LibroEntity() {

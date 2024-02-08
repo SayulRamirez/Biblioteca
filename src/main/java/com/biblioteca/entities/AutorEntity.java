@@ -1,15 +1,21 @@
 package com.biblioteca.entities;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
+@Table(name = "autores")
 public class AutorEntity {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
     private String apellido;
+    @OneToMany(mappedBy = "autor")
+    private Set<LibroEntity> libros;
 
-    public AutorEntity(Long id) {
-        this.id = id;
-    }
+    public AutorEntity(){}
 
     public AutorEntity(Long id, String nombre, String apellido) {
         this.id = id;
