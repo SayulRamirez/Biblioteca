@@ -11,8 +11,8 @@ public class LibroEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String titulo;
-    @ManyToOne
-    @Column(name = "autor_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "autor_id")
     private AutorEntity autor;
     @Column(name = "num_existencias")
     private Integer numeroExistencias;
@@ -20,11 +20,11 @@ public class LibroEntity {
     public LibroEntity() {
     }
 
-    public LibroEntity(Long id, String titulo, AutorEntity autor, Integer numeroExistencias) {
+    public LibroEntity(Long id, String titulo, Integer existencias, AutorEntity autor) {
         this.id = id;
         this.titulo = titulo;
+        this.numeroExistencias = existencias;
         this.autor = autor;
-        this.numeroExistencias = numeroExistencias;
     }
 
     public Long getId() {

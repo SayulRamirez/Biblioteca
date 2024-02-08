@@ -24,26 +24,15 @@ public class ControllerLibro {
             throw new RuntimeException("Parametro vacío.");
         }
 
-        List<Libro> libros;
-
-        switch (itemSeleccionado) {
-
-            case 0:
-                libros = libroService.buscarLibrosPorApellido(parametroEntrada);
-                break;
-
-            case 1:
-                libros = libroService.buscarLibrosPorNombre(parametroEntrada);
-                break;
-
-            case 2:
-                libros = libroService.buscarLibrosPorTitulo(parametroEntrada);
-                break;
-
-            default:
+        List<Libro> libros = switch (itemSeleccionado) {
+            case 0 -> libroService.buscarLibrosPorApellido(parametroEntrada);
+            case 1 -> libroService.buscarLibrosPorNombre(parametroEntrada);
+            case 2 -> libroService.buscarLibrosPorTitulo(parametroEntrada);
+            default -> {
                 JOptionPane.showMessageDialog(null, "Opción no disponible.");
                 throw new RuntimeException();
-        }
+            }
+        };
 
         if (libros == null){
             JOptionPane.showMessageDialog(null, "No se encontrarón coincidencias.");

@@ -15,7 +15,6 @@ public class ConsultaLibro extends javax.swing.JPanel {
 
     private JTextField textParametroBusqueda;
     private JComboBox<String> comboOpciones;
-    private JTable tablaLibros;
     private DefaultTableModel modeloLibros;
 
     /**
@@ -76,10 +75,9 @@ public class ConsultaLibro extends javax.swing.JPanel {
             }
         });
 
-        tablaLibros = new JTable();
+        JTable tablaLibros = new JTable();
         tablaLibros.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tablaLibros.setFont(new Font("Roboto", Font.PLAIN, 16));
-        tablaLibros.setModel(modeloLibros);
         modeloLibros = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -92,6 +90,7 @@ public class ConsultaLibro extends javax.swing.JPanel {
         modeloLibros.addColumn("Nombre");
         modeloLibros.addColumn("Apellido");
         modeloLibros.addColumn("Existencias");
+        tablaLibros.setModel(modeloLibros);
         JScrollPane scroll_tablaLibros = new JScrollPane(tablaLibros);
 
         scroll_tablaLibros.setViewportView(tablaLibros);
@@ -100,7 +99,9 @@ public class ConsultaLibro extends javax.swing.JPanel {
     }
     private void buscarLibro() {
 
-        int itemSeleccionado = comboOpciones.getItemCount();
+        modeloLibros.getDataVector().clear();
+
+        int itemSeleccionado = comboOpciones.getSelectedIndex();
 
         String parametroEntrada = textParametroBusqueda.getText();
 
@@ -117,6 +118,5 @@ public class ConsultaLibro extends javax.swing.JPanel {
                         libro.getAutor().getApellido(),
                         libro.getNumeroExistencias()
                 }));
-
     }
 }
