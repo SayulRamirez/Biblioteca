@@ -2,6 +2,7 @@ package com.biblioteca.view;
 
 import com.biblioteca.controller.AlumnoController;
 import com.biblioteca.controller.LibroController;
+import com.biblioteca.controller.PrestamoController;
 import com.biblioteca.model.Alumno;
 import com.biblioteca.model.Libro;
 import com.biblioteca.validation_view.ValidacionField;
@@ -211,6 +212,15 @@ public class PrestamoPanel extends JPanel {
 
     private void  realizarPrestamo() {
 
+        PrestamoController prestamoController = new PrestamoController();
+        Long folio = prestamoController.realizarPrestamo(alumno, libro);
+
+        if (folio == null) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error!");
+            throw new RuntimeException();
+        }
+
+        JOptionPane.showMessageDialog(null, "El folio del prestamo es: " + folio);
     }
 
     private void limpiarCampos(){

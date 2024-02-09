@@ -86,7 +86,7 @@ public class LibroDAOImpl implements LibroDAO {
 
             resultados.forEach(resultado
                     -> libros.add(new LibroEntity(Long.valueOf((Integer) resultado[0]), (String) resultado[1], (Integer) resultado[2],
-                    new AutorEntity((String) resultado[3], (String) resultado[4]))));
+                    new AutorEntity(null, (String) resultado[3], (String) resultado[4]))));
 
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println(e.getMessage());

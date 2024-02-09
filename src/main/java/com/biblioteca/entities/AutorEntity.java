@@ -17,7 +17,8 @@ public class AutorEntity {
 
     public AutorEntity(){}
 
-    public AutorEntity(String nombre, String apellido) {
+    public AutorEntity(Long id, String nombre, String apellido) {
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
     }

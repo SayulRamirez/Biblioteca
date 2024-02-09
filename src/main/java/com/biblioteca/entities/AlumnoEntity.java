@@ -1,6 +1,7 @@
 package com.biblioteca.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "alumnos")
@@ -13,6 +14,8 @@ public class AlumnoEntity {
     private String apellido;
     private String periodo;
     private String grupo;
+    @OneToMany(mappedBy = "alumno")
+    private Set<PrestamoEntity> prestamos;
 
     public AlumnoEntity() {
     }

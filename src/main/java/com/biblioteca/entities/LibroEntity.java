@@ -2,6 +2,7 @@ package com.biblioteca.entities;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "libros")
@@ -16,6 +17,8 @@ public class LibroEntity {
     private AutorEntity autor;
     @Column(name = "num_existencias")
     private Integer numeroExistencias;
+    @OneToMany(mappedBy = "libro")
+    private Set<PrestamoEntity> prestamos;
 
     public LibroEntity() {
     }
