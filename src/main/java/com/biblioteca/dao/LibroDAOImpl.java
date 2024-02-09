@@ -3,11 +3,10 @@ package com.biblioteca.dao;
 import com.biblioteca.dao.interfaces.LibroDAO;
 import com.biblioteca.entities.AutorEntity;
 import com.biblioteca.entities.LibroEntity;
+import com.biblioteca.model.Libro;
 import com.biblioteca.util.PersistenceHib;
 
-import javax.persistence.EntityManager;
-import javax.persistence.ParameterMode;
-import javax.persistence.StoredProcedureQuery;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +34,27 @@ public class LibroDAOImpl implements LibroDAO {
         String procedure = "buscarLibroPorTitulo";
 
         return buscarLibroPorParametro(titulo, procedure);
+    }
+
+    @Override
+    public LibroEntity buscarLibroPorID(Long id) {
+
+        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
+
+        TypedQuery<LibroEntity> query = manager.createQuery(
+                "SELECT l FROM LibroEntity l JOIN FETCH l.autor WHERE l.id =: libroId", LibroEntity.class);
+
+        query.setParameter("libroId", id);
+
+        LibroEntity libroEntity;
+
+        try {
+            libroEntity = query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+
+        return libroEntity;
     }
 
     /**

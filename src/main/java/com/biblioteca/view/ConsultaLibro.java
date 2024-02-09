@@ -1,6 +1,6 @@
 package com.biblioteca.view;
 
-import com.biblioteca.controller.ControllerLibro;
+import com.biblioteca.controller.LibroController;
 import com.biblioteca.model.Libro;
 import com.biblioteca.validation_view.ValidacionField;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
@@ -98,9 +98,9 @@ public class ConsultaLibro extends javax.swing.JPanel {
 
         String parametroEntrada = textParametroBusqueda.getText();
 
-        ControllerLibro controllerLibro = new ControllerLibro();
+        LibroController libroController = new LibroController();
 
-        List<Libro> libros = controllerLibro.buscarLibro(itemSeleccionado, parametroEntrada);
+        List<Libro> libros = libroController.buscarLibroPorParametro(itemSeleccionado, parametroEntrada);
 
         libros.forEach(libro -> modeloLibros.addRow(
 

@@ -26,4 +26,11 @@ public interface LibroService {
      * @return Lista de libros
      */
     List<Libro> buscarLibrosPorTitulo(String titulo);
+
+    /**
+     * Busca un libro por su id
+     * @param id del libro {@link Long}
+     * @return Libro
+     */
+    Libro buscarLibroPorID(Long id);
 }

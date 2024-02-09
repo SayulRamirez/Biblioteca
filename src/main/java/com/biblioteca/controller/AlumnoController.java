@@ -1,5 +1,6 @@
 package com.biblioteca.controller;
 
+import com.biblioteca.model.Alumno;
 import com.biblioteca.services.AlumnoServicesImpl;
 import com.biblioteca.services.interfaces.AlumnoServices;
 
@@ -18,7 +19,7 @@ public class AlumnoController {
      * @param text DNI ingresado por el usuario
      * @return String indicando si el alumno se encuentra en el sistema o no
      */
-    public String estaVerificado(String text) {
+    public Alumno buscarAlumno(String text) {
 
         long dni;
 

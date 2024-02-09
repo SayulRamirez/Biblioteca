@@ -5,19 +5,18 @@ import com.biblioteca.services.LibroServiceImpl;
 import com.biblioteca.services.interfaces.LibroService;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.List;
 
-public class ControllerLibro {
+public class LibroController {
 
     private final LibroService libroService;
 
-    public ControllerLibro() {
+    public LibroController() {
         libroService = new LibroServiceImpl();
     }
 
 
-    public List<Libro> buscarLibro(int itemSeleccionado, String parametroEntrada) {
+    public List<Libro> buscarLibroPorParametro(int itemSeleccionado, String parametroEntrada) {
 
         if (parametroEntrada.isBlank()) {
             JOptionPane.showMessageDialog(null, "Favor de llenar el campo de busqueda");
@@ -40,5 +39,18 @@ public class ControllerLibro {
         }
 
         return libros;
+    }
+
+    public Libro buscarLibroPorID(String identificador) {
+
+        long id;
+        try {
+            id = Long.parseLong(identificador);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El id debe de ser númerico");
+            throw new RuntimeException();
+        }
+
+        return libroService.buscarLibroPorID(id);
     }
 }

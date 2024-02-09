@@ -14,11 +14,12 @@ public class AlumnoServicesImpl implements AlumnoServices {
         alumnoDAO = new AlumnoDAOImpl();
     }
     @Override
-    public String buscarAlumno(Long id) {
+    public Alumno buscarAlumno(Long id) {
 
         AlumnoEntity alumnoEntity = alumnoDAO.finbyDni(id);
 
-        if (alumnoEntity == null) return "El alumno no esta en el sistema";
-        else return "El alumno se encuentra en el sistema";
+        if (alumnoEntity == null) return null;
+
+        return new Alumno(alumnoEntity.getDni(), alumnoEntity.getNombre(), alumnoEntity.getApellido(), alumnoEntity.getPeriodo(), alumnoEntity.getGrupo());
     }
 }

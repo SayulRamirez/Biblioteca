@@ -4,6 +4,6 @@ import com.biblioteca.model.Alumno;
 
 public interface AlumnoServices {
 
-    String buscarAlumno(Long id);
+    Alumno buscarAlumno(Long id);
 
 }

@@ -1,7 +1,6 @@
 package com.biblioteca.dao.interfaces;
 
 import com.biblioteca.entities.LibroEntity;
-import com.biblioteca.model.Libro;
 
 import java.util.List;
 
@@ -27,4 +26,11 @@ public interface LibroDAO {
      * @return Lista de libros
      */
     List<LibroEntity> buscarLibrosPorTitulo(String titulo);
+
+    /**
+     * Busca un libro por el id
+     * @param id {@link Long}
+     * @return Libro
+     */
+    LibroEntity buscarLibroPorID(Long id);
 }

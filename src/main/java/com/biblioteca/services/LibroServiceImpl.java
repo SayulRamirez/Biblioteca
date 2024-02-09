@@ -61,14 +61,29 @@ public class LibroServiceImpl implements LibroService {
         return libros;
     }
 
+    @Override
+    public Libro buscarLibroPorID(Long id) {
+
+        LibroEntity libroEntity = libroDAO.buscarLibroPorID(id);
+
+        if (libroEntity == null) return null;
+
+        return new Libro(libroEntity.getId(),
+                         libroEntity.getTitulo(),
+                                new Autor(libroEntity.getAutorEntity().getId(),
+                                          libroEntity.getAutorEntity().getNombre(),
+                                          libroEntity.getAutorEntity().getApellido()),
+                         libroEntity.getNumeroExistencias());
+    }
+
     private void entitiesAModel(List<LibroEntity> libroEntities) {
         libroEntities.forEach(
                 libroEntity -> libros.add(
                         new Libro(libroEntity.getId(),
-                                libroEntity.getTitulo(),
-                                new Autor(libroEntity.getId(),
-                                        libroEntity.getAutorEntity().getNombre(),
-                                        libroEntity.getAutorEntity().getApellido()),
-                                libroEntity.getNumeroExistencias())));
+                                  libroEntity.getTitulo(),
+                                        new Autor(libroEntity.getId(),
+                                                  libroEntity.getAutorEntity().getNombre(),
+                                                  libroEntity.getAutorEntity().getApellido()),
+                                  libroEntity.getNumeroExistencias())));
     }
 }

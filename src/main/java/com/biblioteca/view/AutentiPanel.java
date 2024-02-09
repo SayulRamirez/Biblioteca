@@ -1,6 +1,7 @@
 package com.biblioteca.view;
 
 import com.biblioteca.controller.AlumnoController;
+import com.biblioteca.model.Alumno;
 import com.biblioteca.validation_view.ValidacionField;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
@@ -66,9 +67,10 @@ public class AutentiPanel extends JPanel {
                 String textDNI = textIngresoDNI.getText();
 
                 AlumnoController controller = new AlumnoController();
-                String respuesta = controller.estaVerificado(textDNI);
+                Alumno alumno = controller.buscarAlumno(textDNI);
 
-                labelRespuesta.setText(respuesta);
+                if (alumno == null) labelRespuesta.setText("El alumno no esta en el sistema");
+                else labelRespuesta.setText("El alumno se encuentra en el sistema");
             }
         });
     }
