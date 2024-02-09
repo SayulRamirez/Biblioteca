@@ -2,6 +2,7 @@ package com.biblioteca.view;
 
 import com.biblioteca.controller.ControllerLibro;
 import com.biblioteca.model.Libro;
+import com.biblioteca.validation_view.ValidacionField;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 
@@ -47,15 +48,7 @@ public class ConsultaLibro extends javax.swing.JPanel {
         textParametroBusqueda.setFont(new Font("Segoe UI", Font.PLAIN, 17)); // NOI18N
         add(textParametroBusqueda, new AbsoluteConstraints(340, 40, 160, 30));
 
-        textParametroBusqueda.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char keyChar = e.getKeyChar();
-                if (!Character.isLetter(keyChar)) {
-                    e.consume();
-                }
-            }
-        });
+        textParametroBusqueda.addKeyListener(ValidacionField.ingresarLetras());
 
         JPanel botonBuscar = new JPanel();
         botonBuscar.setLayout(new AbsoluteLayout());

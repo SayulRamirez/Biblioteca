@@ -1,6 +1,7 @@
 package com.biblioteca.view;
 
 import com.biblioteca.controller.AlumnoController;
+import com.biblioteca.validation_view.ValidacionField;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 
@@ -38,16 +39,7 @@ public class AutentiPanel extends JPanel {
 
         textIngresoDNI = new JTextField();
         textIngresoDNI.setFont(new Font("Segoe UI", Font.PLAIN, 17));
-        textIngresoDNI.addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent evt) {
-
-                char keyChar = evt.getKeyChar();
-
-                if (Character.isLetter(keyChar)) {
-                    evt.consume();
-                }
-            }
-        });
+        textIngresoDNI.addKeyListener(ValidacionField.ingresarNumeros());
         add(textIngresoDNI, new AbsoluteConstraints(10, 100, 130, -1));
 
         labelRespuesta = new JLabel();
