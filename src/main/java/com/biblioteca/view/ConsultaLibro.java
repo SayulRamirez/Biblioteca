@@ -70,13 +70,8 @@ public class ConsultaLibro extends javax.swing.JPanel {
 
         JTable tablaLibros = new JTable();
         tablaLibros.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tablaLibros.setFont(new Font("Roboto", Font.PLAIN, 16));
-        modeloLibros = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column == 5; //Ninguna celda es editable
-            }
-        };
+        tablaLibros.setFont(new Font("Roboto", Font.PLAIN, 18));
+        modeloLibros = new DefaultTableModel();
         modeloLibros = (DefaultTableModel) tablaLibros.getModel();
         modeloLibros.addColumn("ID");
         modeloLibros.addColumn("Título");

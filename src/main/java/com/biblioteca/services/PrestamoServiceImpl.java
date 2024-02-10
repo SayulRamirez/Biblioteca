@@ -11,10 +11,13 @@ import com.biblioteca.model.Libro;
 import com.biblioteca.services.interfaces.PrestamoService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PrestamoServiceImpl implements PrestamoService {
 
-    public PrestamoDAO prestamoDAO;
+    private final PrestamoDAO prestamoDAO;
+    private List<String[]> prestamoEntities;
 
     public PrestamoServiceImpl() {
         prestamoDAO = new PrestamoDAOImpl();
@@ -34,5 +37,18 @@ public class PrestamoServiceImpl implements PrestamoService {
         PrestamoEntity prestamoEntity = new PrestamoEntity(null, alumnoEntity, libroEntity, inicioPrestamo, fechaEntrega);
 
         return prestamoDAO.realizarPrestamo(prestamoEntity);
+    }
+
+    @Override
+    public List<String[]> buscarPrestamoPorID(String parametro) {
+
+        return prestamoDAO.buscarPrestamoPorID(parametro);
+    }
+
+    @Override
+    public List<String[]> buscarPrestamoPorTitulo(String parametro) {
+        
+        return prestamoDAO.buscarPrestamoPorTitulo(parametro);
+
     }
 }
