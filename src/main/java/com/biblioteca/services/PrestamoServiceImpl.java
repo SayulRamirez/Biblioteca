@@ -8,7 +8,9 @@ import com.biblioteca.entities.LibroEntity;
 import com.biblioteca.entities.PrestamoEntity;
 import com.biblioteca.model.Alumno;
 import com.biblioteca.model.Libro;
+import com.biblioteca.model.Prestamo;
 import com.biblioteca.services.interfaces.PrestamoService;
+import net.bytebuddy.asm.Advice;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,7 +19,6 @@ import java.util.List;
 public class PrestamoServiceImpl implements PrestamoService {
 
     private final PrestamoDAO prestamoDAO;
-    private List<String[]> prestamoEntities;
 
     public PrestamoServiceImpl() {
         prestamoDAO = new PrestamoDAOImpl();
@@ -50,5 +51,37 @@ public class PrestamoServiceImpl implements PrestamoService {
         
         return prestamoDAO.buscarPrestamoPorTitulo(parametro);
 
+    }
+
+    @Override
+    public String[] buscarPrestamoPorFolio(long folioPrestamo) {
+
+        return prestamoDAO.buscarPrestamoPorFolio(folioPrestamo);
+    }
+
+    @Override
+    public int actualizarPrestamo(long folioLong, LocalDate fechaEntrega) {
+
+        if (fechaEntrega.isBefore(LocalDate.now())) {
+
+            return prestamoDAO.actualizarPrestamo(folioLong);
+        }
+
+        return 0;
+    }
+
+    @Override
+    public int actualizarPrestamoMultaUno(long folioLong, String motivo, LocalDate fechaEntrega) {
+        return 0;
+    }
+
+    @Override
+    public int actualizarPrestamoMultaDos(long folioLong, String motivo, LocalDate fechaEntrega) {
+        return 0;
+    }
+
+    @Override
+    public int actualizarPrestamoMultaTres(long folioLong, String motivo, LocalDate fechaEntrega) {
+        return 0;
     }
 }

@@ -5,11 +5,8 @@ import com.biblioteca.entities.LibroEntity;
 import com.biblioteca.entities.PrestamoEntity;
 import com.biblioteca.util.PersistenceHib;
 
-import javax.persistence.EntityExistsException;
-import javax.persistence.EntityManager;
-import javax.persistence.ParameterMode;
-import javax.persistence.StoredProcedureQuery;
-import java.time.LocalDate;
+import javax.persistence.*;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +57,71 @@ public class PrestamoDAOImpl implements PrestamoDAO {
     public List<String[]> buscarPrestamoPorTitulo(String parametro) {
         String procedure = "buscarPrestamoPorTitulo";
         return buscarPrestamoPorParametro(parametro, procedure);
+    }
+
+    @Override
+    public String[] buscarPrestamoPorFolio(long folioPrestamo) {
+        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
+
+        try {
+            StoredProcedureQuery query = manager.createStoredProcedureQuery("buscarPrestamoPorFolio");
+
+            query.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
+
+            query.setParameter(1, folioPrestamo);
+
+            query.execute();
+
+            List<Object[]> respuesta = query.getResultList();
+
+            List<String[]> prestamos = new ArrayList<>();
+
+            respuesta.forEach(
+                    array -> prestamos.add(
+                            new String[]{
+                                    String.valueOf(array[0]),
+                                    String.valueOf(array[1]),
+                                    String.valueOf(array[2]),
+                                    (String) array[3],
+                                    String.valueOf(array[4])}));
+
+
+            return prestamos.get(0);
+
+        } catch (IllegalArgumentException | NullPointerException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+            manager.close();
+        }
+        return null;
+
+    }
+
+    @Override
+    public int actualizarPrestamo(long folioLong) {
+        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
+
+        try {
+            PrestamoEntity prestamoEntity = manager.find(PrestamoEntity.class, folioLong);
+
+            prestamoEntity.setEstado(false);
+
+            manager.getTransaction().begin();
+
+            manager.merge(prestamoEntity);
+
+            manager.getTransaction().commit();
+            return 1;
+        } catch (IllegalArgumentException | TransactionRequiredException e) {
+
+            manager.getTransaction().rollback();
+            JOptionPane.showMessageDialog(null, "Ocurrio un error al actualizar el prestamo.");
+            e.getStackTrace();
+            throw new RuntimeException();
+        } finally {
+            manager.close();
+        }
     }
 
     private List<String[]> buscarPrestamoPorParametro(String parametro, String procedure) {

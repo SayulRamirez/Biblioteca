@@ -1,37 +1,24 @@
-package com.biblioteca.entities;
+package com.biblioteca.model;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "prestamos")
-public class PrestamoEntity {
+public class Prestamo {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "alumno_dni")
-    private AlumnoEntity alumno;
-    @ManyToOne
-    @JoinColumn(name = "libro_id")
-    private LibroEntity libro;
-    @Column(name = "fecha_solicitud")
+    private Alumno alumno;
+    private Libro libro;
     private LocalDate fechaSolicitud;
-    @Column(name = "fecha_entrega")
     private LocalDate fechaEntrega;
     private Boolean estado;
 
-    public PrestamoEntity() {
-    }
-
-    public PrestamoEntity(Long id, AlumnoEntity alumno, LibroEntity libro, LocalDate fechaSolicitud, LocalDate fechaEntrega) {
+    public Prestamo(){}
+    public Prestamo(Long id, Alumno alumno, Libro libro, LocalDate fechaSolicitud, LocalDate fechaEntrega, Boolean estado) {
         this.id = id;
         this.alumno = alumno;
         this.libro = libro;
         this.fechaSolicitud = fechaSolicitud;
         this.fechaEntrega = fechaEntrega;
-        this.estado = true;
+        this.estado = estado;
     }
 
     public Long getId() {
@@ -42,19 +29,19 @@ public class PrestamoEntity {
         this.id = id;
     }
 
-    public AlumnoEntity getAlumno() {
+    public Alumno getAlumno() {
         return alumno;
     }
 
-    public void setAlumno(AlumnoEntity alumno) {
+    public void setAlumno(Alumno alumno) {
         this.alumno = alumno;
     }
 
-    public LibroEntity getLibro() {
+    public Libro getLibro() {
         return libro;
     }
 
-    public void setLibro(LibroEntity libro) {
+    public void setLibro(Libro libro) {
         this.libro = libro;
     }
 
@@ -66,18 +53,19 @@ public class PrestamoEntity {
         this.fechaSolicitud = fechaSolicitud;
     }
 
-    public Boolean getEstado() {
-        return estado;
-    }
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
-    }
-
     public LocalDate getFechaEntrega() {
         return fechaEntrega;
     }
 
     public void setFechaEntrega(LocalDate fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 }
