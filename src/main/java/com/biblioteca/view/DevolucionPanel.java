@@ -129,7 +129,7 @@ public class DevolucionPanel extends javax.swing.JPanel {
 
     private void realizarDevolucion() {
         String motivo = Objects.requireNonNull(tipoMulta.getSelectedItem()).toString();
-        int posicionMotivo = tipoMulta.getItemCount();
+        int posicionMotivo = tipoMulta.getSelectedIndex();
         boolean seleccionado = radioMulta.isSelected();
         LocalDate fechaEntrega = recuperarFechaEntrega();
 

@@ -12,7 +12,9 @@ import com.biblioteca.model.Prestamo;
 import com.biblioteca.services.interfaces.PrestamoService;
 import net.bytebuddy.asm.Advice;
 
+import javax.swing.*;
 import java.time.LocalDate;
+import java.time.temporal.TemporalField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,26 +64,67 @@ public class PrestamoServiceImpl implements PrestamoService {
     @Override
     public int actualizarPrestamo(long folioLong, LocalDate fechaEntrega) {
 
-        if (fechaEntrega.isBefore(LocalDate.now())) {
+        if (LocalDate.now().isBefore(fechaEntrega)) {
 
-            return prestamoDAO.actualizarPrestamo(folioLong);
+            int i = prestamoDAO.actualizarPrestamo(folioLong);
+            System.out.println("Servicio: " + i);
+            return i;
+        }
+        return 0;
+    }
+
+    @Override
+    public int actualizarPrestamoMultaUno(long folio, String motivo, LocalDate fechaEntrega) {
+
+        LocalDate fechaInicial = LocalDate.now();
+        long actual = fechaInicial.toEpochDay();
+        long entrega = fechaEntrega.toEpochDay();
+
+        int diferencia = (int) (entrega - actual);
+
+        if (diferencia <= 0 || diferencia >= 4) {
+            JOptionPane.showMessageDialog(null, "Algo anda mal, revisa las fechas por favor!");
+            throw new RuntimeException();
         }
 
-        return 0;
+        LocalDate fechaFinal = fechaInicial.plusDays(4);
+
+        return prestamoDAO.actualizarPrestamoMulta(folio, motivo, fechaInicial, fechaFinal);
     }
 
     @Override
-    public int actualizarPrestamoMultaUno(long folioLong, String motivo, LocalDate fechaEntrega) {
-        return 0;
+    public int actualizarPrestamoMultaDos(long folio, String motivo, LocalDate fechaEntrega) {
+
+        LocalDate fechaInicial = LocalDate.now();
+        long actual = fechaInicial.toEpochDay();
+        long entrega = fechaEntrega.toEpochDay();
+
+        int diferencia = (int) (entrega - actual);
+
+        if (diferencia <= 3) {
+            JOptionPane.showMessageDialog(null, "Algo anda mal, revisa la fechas por favor!!");
+            throw new RuntimeException();
+        }
+
+        LocalDate fechaFinal = fechaInicial.plusDays(7);
+
+        return prestamoDAO.actualizarPrestamoMulta(folio, motivo, fechaInicial, fechaFinal);
     }
 
     @Override
-    public int actualizarPrestamoMultaDos(long folioLong, String motivo, LocalDate fechaEntrega) {
-        return 0;
-    }
+    public int actualizarPrestamoMultaTres(long folio, String motivo, LocalDate fechaEntrega) {
+        LocalDate fechaInicial = LocalDate.now();
+        long actual = fechaInicial.toEpochDay();
+        long entrega = fechaEntrega.toEpochDay();
+        int diferencia = (int) (entrega - actual);
 
-    @Override
-    public int actualizarPrestamoMultaTres(long folioLong, String motivo, LocalDate fechaEntrega) {
-        return 0;
+        if (diferencia < 1) {
+            JOptionPane.showMessageDialog(null, "Algo anda mal, revisa las fechas por favor!!");
+            throw new RuntimeException();
+        }
+
+        LocalDate fechaFinal = fechaInicial.plusDays(15);
+
+        return prestamoDAO.actualizarPrestamoMulta(folio, motivo, fechaInicial, fechaFinal);
     }
 }

@@ -1,12 +1,16 @@
 package com.biblioteca.dao;
 
 import com.biblioteca.dao.interfaces.PrestamoDAO;
+import com.biblioteca.entities.AlumnoEntity;
 import com.biblioteca.entities.LibroEntity;
+import com.biblioteca.entities.MultaEntity;
 import com.biblioteca.entities.PrestamoEntity;
 import com.biblioteca.util.PersistenceHib;
+import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
 import javax.swing.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,6 +126,35 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         } finally {
             manager.close();
         }
+    }
+
+    @Override
+    public int actualizarPrestamoMulta(long folio, String motivo, LocalDate fechaInicial, LocalDate fehcaFinal) {
+        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
+
+        try {
+
+            PrestamoEntity prestamoEntity = manager.find(PrestamoEntity.class, folio);
+            prestamoEntity.setEstado(false);
+
+            AlumnoEntity alumno = prestamoEntity.getAlumno();
+
+            MultaEntity multaEntity = new MultaEntity(null, motivo, fechaInicial, fehcaFinal, alumno);
+
+            manager.getTransaction().begin();
+
+            manager.merge(prestamoEntity);
+            manager.persist(multaEntity);
+
+            manager.getTransaction().commit();
+        } catch (IllegalArgumentException | TransactionRequiredException | EntityExistsException | RollbackException e) {
+            System.out.println("Ocurrio un error: " + e.getMessage());
+            manager.getTransaction().rollback();
+            return 0;
+        } finally {
+            manager.close();
+        }
+        return 1;
     }
 
     private List<String[]> buscarPrestamoPorParametro(String parametro, String procedure) {

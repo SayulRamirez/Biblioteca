@@ -18,9 +18,9 @@ public interface PrestamoService {
 
     int actualizarPrestamo(long folioLong, LocalDate fechaEntrega);
 
-    int actualizarPrestamoMultaUno(long folioLong, String motivo, LocalDate fechaEntrega);
+    int actualizarPrestamoMultaUno(long folio, String motivo, LocalDate fechaEntrega);
 
-    int actualizarPrestamoMultaDos(long folioLong, String motivo, LocalDate fechaEntrega);
+    int actualizarPrestamoMultaDos(long folio, String motivo, LocalDate fechaEntrega);
 
-    int actualizarPrestamoMultaTres(long folioLong, String motivo, LocalDate fechaEntrega);
+    int actualizarPrestamoMultaTres(long folio, String motivo, LocalDate fechaEntrega);
 }

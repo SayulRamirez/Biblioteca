@@ -2,6 +2,7 @@ package com.biblioteca.dao.interfaces;
 
 import com.biblioteca.entities.PrestamoEntity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PrestamoDAO {
@@ -15,4 +16,6 @@ public interface PrestamoDAO {
     String[] buscarPrestamoPorFolio(long folioPrestamo);
 
     int actualizarPrestamo(long folioLong);
+
+    int actualizarPrestamoMulta(long folio, String motivo, LocalDate fechaInicial, LocalDate fehcaFinal);
 }

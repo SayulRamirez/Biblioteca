@@ -16,6 +16,8 @@ public class AlumnoEntity {
     private String grupo;
     @OneToMany(mappedBy = "alumno")
     private Set<PrestamoEntity> prestamos;
+    @OneToMany(mappedBy = "alumno")
+    private Set<MultaEntity> multas;
 
     public AlumnoEntity() {
     }

@@ -11,6 +11,10 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
 
         <!-- Clases persistentes -->
         <class>com.biblioteca.entities.AlumnoEntity</class>
+        <class>com.biblioteca.entities.PrestamoEntity</class>
+        <class>com.biblioteca.entities.LibroEntity</class>
+        <class>com.biblioteca.entities.AutorEntity</class>
+        <class>com.biblioteca.entities.MultaEntity</class>
 
 
         <properties>
