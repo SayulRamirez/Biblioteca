@@ -1,5 +1,6 @@
 package com.biblioteca.view;
 
+import com.biblioteca.util.PersistenceHib;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 
@@ -210,6 +211,12 @@ public class VentanaPrincipal extends JFrame {
      */
     public static void main(String[] args) {
 
-        EventQueue.invokeLater(() -> new VentanaPrincipal().setVisible(true));
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                PersistenceHib.getEntityManagerFactory().createEntityManager();
+                new VentanaPrincipal().setVisible(true);
+            }
+        });
     }
 }

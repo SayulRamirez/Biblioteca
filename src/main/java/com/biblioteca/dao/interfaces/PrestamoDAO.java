@@ -9,7 +9,7 @@ public interface PrestamoDAO {
 
     Long realizarPrestamo(PrestamoEntity prestamoEntity);
 
-    List<String[]> buscarPrestamoPorID(String parametro);
+    List<String[]> buscarPrestamoPorID(Long parametro);
 
     List<String[]> buscarPrestamoPorTitulo(String parametro);
 

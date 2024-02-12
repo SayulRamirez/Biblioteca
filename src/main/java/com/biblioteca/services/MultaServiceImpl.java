@@ -6,6 +6,8 @@ import com.biblioteca.entities.MultaEntity;
 import com.biblioteca.model.Multa;
 import com.biblioteca.services.interfaces.MultaService;
 
+import java.time.LocalDate;
+
 public class MultaServiceImpl implements MultaService {
 
     private final MultaDAO multaDAO;
@@ -29,5 +31,14 @@ public class MultaServiceImpl implements MultaService {
                 null,
                 null
         );
+    }
+
+    @Override
+    public void actualizarMultas() {
+
+        LocalDate ahora = LocalDate.now();
+
+        multaDAO.actualizarMultas(ahora);
+
     }
 }

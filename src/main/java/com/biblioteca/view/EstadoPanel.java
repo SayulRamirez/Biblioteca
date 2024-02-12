@@ -241,5 +241,7 @@ public class EstadoPanel extends JPanel {
 
     private void actualizarMultas(){
 
+        MultaController multaController = new MultaController();
+        multaController.actualizarMultas();
     }
 }

@@ -24,4 +24,9 @@ public class MultaController {
 
         return multaService.buscarMultaPorAlumno(dniAlumno);
     }
+
+    public void actualizarMultas() {
+
+        multaService.actualizarMultas();
+    }
 }

@@ -6,6 +6,7 @@ import com.biblioteca.entities.LibroEntity;
 import com.biblioteca.entities.MultaEntity;
 import com.biblioteca.entities.PrestamoEntity;
 import com.biblioteca.util.PersistenceHib;
+import com.sun.xml.bind.v2.runtime.output.SAXOutput;
 import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
@@ -18,12 +19,16 @@ public class PrestamoDAOImpl implements PrestamoDAO {
 
     @Override
     public Long realizarPrestamo(PrestamoEntity prestamoEntity) {
+        Long dni = prestamoEntity.getAlumno().getDni();
+
+        puedeRealizarPrestamos(dni);
 
         Long folio;
 
         EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
 
         try {
+
             manager.getTransaction().begin();
 
             manager.persist(prestamoEntity);
@@ -51,16 +56,72 @@ public class PrestamoDAOImpl implements PrestamoDAO {
     }
 
     @Override
-    public List<String[]> buscarPrestamoPorID(String parametro) {
+    public List<String[]> buscarPrestamoPorID(Long parametro) {
 
-        String procedure = "buscarPrestamoPorIdLibro";
-        return buscarPrestamoPorParametro(parametro, procedure);
+        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
+        List<String[]> prestamos = new ArrayList<>();
+
+        try {
+            StoredProcedureQuery query = manager.createStoredProcedureQuery("buscarPrestamoPorIdLibro");
+
+            query.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
+
+            query.setParameter(1, parametro);
+
+            query.execute();
+
+            List<Object[]> resultados = query.getResultList();
+
+            if (resultados.isEmpty()) return null;
+
+            resultados.forEach(
+                    array -> prestamos.add(
+                            new String[]{
+                                    String.valueOf(array[0]),
+                                    array[1].toString(),
+                                    array[2].toString(),
+                                    String.valueOf(array[3]),}));
+        } catch (IllegalArgumentException | NullPointerException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+            manager.close();
+        }
+        return prestamos;
     }
 
     @Override
     public List<String[]> buscarPrestamoPorTitulo(String parametro) {
-        String procedure = "buscarPrestamoPorTitulo";
-        return buscarPrestamoPorParametro(parametro, procedure);
+        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
+        List<String[]> prestamos = new ArrayList<>();
+
+        try {
+            StoredProcedureQuery query = manager.createStoredProcedureQuery("buscarPrestamoPorTitulo");
+
+            query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+
+            query.setParameter(1, parametro);
+
+            query.execute();
+
+            List<Object[]> resultados = query.getResultList();
+
+            if (resultados.isEmpty()) return null;
+
+            resultados.forEach(
+                    array -> prestamos.add(
+                            new String[]{
+                                    String.valueOf(array[0]),
+                                    array[1].toString(),
+                                    array[2].toString(),
+                                    String.valueOf(array[3]),}));
+        } catch (IllegalArgumentException | NullPointerException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+            manager.close();
+        }
+        return prestamos;
     }
 
     @Override
@@ -89,6 +150,8 @@ public class PrestamoDAOImpl implements PrestamoDAO {
                                     (String) array[3],
                                     String.valueOf(array[4])}));
 
+
+            if (prestamos.size() == 0) return null;
 
             return prestamos.get(0);
 
@@ -174,50 +237,48 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         try {
 
             TypedQuery<PrestamoEntity> query = manager.createQuery(
-                    "select p from PrestamoEntity p where p.alumno.dni =: dni and p.estado = true", PrestamoEntity.class);
+                    "from PrestamoEntity p where p.alumno.dni =: dni and p.estado = true", PrestamoEntity.class);
 
             query.setParameter("dni", dni);
 
             return query.getSingleResult();
 
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | NoResultException e) {
             System.out.println(e.getMessage());
-            return null;
         } finally {
             manager.close();
         }
+        return null;
     }
 
-    private List<String[]> buscarPrestamoPorParametro(String parametro, String procedure) {
+    private void puedeRealizarPrestamos(Long dni) {
         EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
-        List<String[]> prestamos = new ArrayList<>();
 
         try {
-            StoredProcedureQuery query = manager.createStoredProcedureQuery(procedure);
+            TypedQuery<PrestamoDAOImpl> query = manager.createQuery("select p.id from PrestamoEntity p where p.alumno.dni =: dni and p.estado = true", PrestamoDAOImpl.class);
+            query.setParameter("dni", dni);
 
-            query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+            PrestamoDAOImpl resultado = query.getSingleResult();
 
-            query.setParameter(1, parametro);
+            if (resultado != null) {
+                JOptionPane.showMessageDialog(null, "El alumno tiene un prestamo pendiente");
+                throw new RuntimeException("Tiene prestamo.");
+            }
 
-            query.execute();
+            TypedQuery<MultaEntity> queryMulta = manager.createQuery("select m.id from MultaEntity m where m.alumno.dni =: dni and m.estado = true", MultaEntity.class);
 
-            List<Object[]> resultados = query.getResultList();
+            queryMulta.setParameter("dni", dni);
 
-            if (resultados.isEmpty()) return null;
+            MultaEntity multaEntity = queryMulta.getSingleResult();
 
-            resultados.forEach(
-                    array -> prestamos.add(
-                            new String[]{
-                                    String.valueOf(array[0]),
-                                    array[1].toString(),
-                                    array[2].toString(),
-                                    String.valueOf(array[3]),}));
-        } catch (IllegalArgumentException | NullPointerException e) {
+            if (multaEntity != null) {
+                JOptionPane.showMessageDialog(null, "El alumno tiene una multa pendiente");
+                throw new RuntimeException("Tiene una multa.");
+            }
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-
         } finally {
             manager.close();
         }
-        return prestamos;
     }
 }

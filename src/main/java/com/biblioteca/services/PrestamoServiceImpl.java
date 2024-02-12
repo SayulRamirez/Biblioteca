@@ -45,7 +45,15 @@ public class PrestamoServiceImpl implements PrestamoService {
     @Override
     public List<String[]> buscarPrestamoPorID(String parametro) {
 
-        return prestamoDAO.buscarPrestamoPorID(parametro);
+        long id;
+
+        try {
+            id = Long.parseLong(parametro);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+
+        return prestamoDAO.buscarPrestamoPorID(id);
     }
 
     @Override
@@ -66,9 +74,8 @@ public class PrestamoServiceImpl implements PrestamoService {
 
         if (LocalDate.now().isBefore(fechaEntrega)) {
 
-            int i = prestamoDAO.actualizarPrestamo(folioLong);
-            System.out.println("Servicio: " + i);
-            return i;
+            int filaActualizada = prestamoDAO.actualizarPrestamo(folioLong);
+            return filaActualizada;
         }
         return 0;
     }
@@ -100,8 +107,6 @@ public class PrestamoServiceImpl implements PrestamoService {
         long entrega = fechaEntrega.toEpochDay();
 
         int diferencia = (int) (actual - entrega);
-
-        System.out.println(diferencia);
 
         if (diferencia <= 3) {
             JOptionPane.showMessageDialog(null, "Algo anda mal, revisa la fechas por favor!!");

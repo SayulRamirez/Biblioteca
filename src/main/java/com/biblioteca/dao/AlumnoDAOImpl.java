@@ -20,6 +20,8 @@ public class AlumnoDAOImpl implements AlumnoDAO {
         try {
             AlumnoEntity alumnoEntity = manager.find(AlumnoEntity.class, dni);
 
+            if (alumnoEntity == null) return null;
+
             Long dniEncontrado = alumnoEntity.getDni();
 
             StoredProcedureQuery query = manager.createStoredProcedureQuery("tieneMultaActiva");
@@ -30,7 +32,7 @@ public class AlumnoDAOImpl implements AlumnoDAO {
 
             boolean execute = query.execute();
 
-            if (execute) {
+            if (execute == false) {
                 JOptionPane.showMessageDialog(null, "El alumno tiene multas, no puede realizar prestamos");
                 throw new RuntimeException();
             }
@@ -40,7 +42,6 @@ public class AlumnoDAOImpl implements AlumnoDAO {
 
             System.out.println(e.getMessage());
         } finally {
-
             manager.close();
         }
         return null;
