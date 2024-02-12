@@ -122,4 +122,24 @@ public class PrestamoServiceImpl implements PrestamoService {
 
         return prestamoDAO.actualizarPrestamoMulta(folio, motivo, fechaInicial, fechaFinal);
     }
+
+    @Override
+    public Prestamo buscarPrestamoPorAlumno(Long dni) {
+
+        PrestamoEntity prestamoEntity = prestamoDAO.buscarPrestamoPorDni(dni);
+
+        if (prestamoEntity == null) return null;
+
+        return new Prestamo(
+                prestamoEntity.getId(),
+                null,
+                new Libro(
+                        prestamoEntity.getLibro().getId(),
+                        prestamoEntity.getLibro().getTitulo(),
+                        null,
+                        null),
+                prestamoEntity.getFechaSolicitud(),
+                prestamoEntity.getFechaEntrega(),
+                null);
+    }
 }

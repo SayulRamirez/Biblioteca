@@ -167,6 +167,27 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         }
     }
 
+    @Override
+    public PrestamoEntity buscarPrestamoPorDni(Long dni) {
+        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
+
+        try {
+
+            TypedQuery<PrestamoEntity> query = manager.createQuery(
+                    "select p from PrestamoEntity p where p.alumno.dni =: dni and p.estado = true", PrestamoEntity.class);
+
+            query.setParameter("dni", dni);
+
+            return query.getSingleResult();
+
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            manager.close();
+        }
+    }
+
     private List<String[]> buscarPrestamoPorParametro(String parametro, String procedure) {
         EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
         List<String[]> prestamos = new ArrayList<>();

@@ -1,5 +1,9 @@
 package com.biblioteca.view;
 
+import com.biblioteca.controller.MultaController;
+import com.biblioteca.controller.PrestamoController;
+import com.biblioteca.model.Multa;
+import com.biblioteca.model.Prestamo;
 import com.biblioteca.validation_view.ValidacionField;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
@@ -14,7 +18,7 @@ public class EstadoPanel extends JPanel {
     private JTextField textIDPrestamo;
     private JTextField textFechaPrestamo;
     private JTextField textFechaEntrega;
-    private JTextField textIDLibro;
+    private JTextField textLibroTitulo;
     private JTextField textIdMulta;
     private JTextField textFinMulta;
     private JTextField textMotivo;
@@ -44,7 +48,7 @@ public class EstadoPanel extends JPanel {
         add(textDIN, new AbsoluteConstraints(60, 70, 100, 30));
 
         JPanel botonEstado = new JPanel();
-        botonEstado.setBorder(BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        botonEstado.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         botonEstado.setCursor(new Cursor(Cursor.HAND_CURSOR));
         botonEstado.setFont(new Font("Segoe UI", Font.PLAIN, 17));
         botonEstado.setLayout(new AbsoluteLayout());
@@ -66,7 +70,7 @@ public class EstadoPanel extends JPanel {
         add(botonEstado, new AbsoluteConstraints(190, 70, 120, 30));
 
         JPanel botonLimpiar = new JPanel();
-        botonLimpiar.setBorder(BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        botonLimpiar.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         botonLimpiar.setCursor(new Cursor(Cursor.HAND_CURSOR));
         botonLimpiar.setFont(new Font("Segoe UI", Font.PLAIN, 17));
         botonLimpiar.setLayout(new AbsoluteLayout());
@@ -86,6 +90,28 @@ public class EstadoPanel extends JPanel {
         botonLimpiar.add(labelLimpiar, new AbsoluteConstraints(0, 0, 120, 30));
 
         add(botonLimpiar, new AbsoluteConstraints(350, 70, 120, 30));
+
+        JPanel botonActualizar = new JPanel();
+        botonActualizar.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        botonActualizar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        botonActualizar.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+        botonActualizar.setLayout(new AbsoluteLayout());
+
+        JLabel labelActualizar = new JLabel();
+        labelActualizar.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+        labelActualizar.setHorizontalAlignment(SwingConstants.CENTER);
+        labelActualizar.setText("Actualizar");
+
+        botonActualizar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                actualizarMultas();
+            }
+        });
+
+        botonActualizar.add(labelActualizar, new AbsoluteConstraints(0, 0, 120, 30));
+
+        add(botonActualizar, new AbsoluteConstraints(500, 70, 120, 30));
 
         JLabel labelEstPresta = new JLabel();
         labelEstPresta.setFont(new Font("Segoe UI", Font.PLAIN, 17));
@@ -126,15 +152,15 @@ public class EstadoPanel extends JPanel {
         textFechaEntrega.setEditable(false);
         add(textFechaEntrega, new AbsoluteConstraints(10, 390, 150, 30));
 
-        JLabel labelIDLibro = new JLabel();
-        labelIDLibro.setFont(new Font("Segoe UI", Font.PLAIN, 17));
-        labelIDLibro.setText("ID del libro:");
-        add(labelIDLibro, new AbsoluteConstraints(200, 190, 90, 25));
+        JLabel labelTituloLibro = new JLabel();
+        labelTituloLibro.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+        labelTituloLibro.setText("Titulo del libro:");
+        add(labelTituloLibro, new AbsoluteConstraints(200, 190, 150, 25));
 
-        textIDLibro = new JTextField();
-        textIDLibro.setFont(new Font("Segoe UI", Font.PLAIN, 17));
-        textIDLibro.setEditable(false);
-        add(textIDLibro, new AbsoluteConstraints(200, 220, 70, 30));
+        textLibroTitulo = new JTextField();
+        textLibroTitulo.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+        textLibroTitulo.setEditable(false);
+        add(textLibroTitulo, new AbsoluteConstraints(200, 220, 200, 30));
 
         JLabel labelEstMulta = new JLabel();
         labelEstMulta.setFont(new Font("Segoe UI", Font.PLAIN, 17));
@@ -145,46 +171,75 @@ public class EstadoPanel extends JPanel {
         JLabel lableIDMulta = new JLabel();
         lableIDMulta.setFont(new Font("Segoe UI", Font.PLAIN, 17));
         lableIDMulta.setText("Folio de la multa:");
-        add(lableIDMulta, new AbsoluteConstraints(370, 190, 140, 25));
+        add(lableIDMulta, new AbsoluteConstraints(420, 190, 140, 25));
 
         textIdMulta = new JTextField();
         textIdMulta.setFont(new Font("Segoe UI", Font.PLAIN, 17));
         textIdMulta.setEditable(false);
-        add(textIdMulta, new AbsoluteConstraints(370, 220, 100, 30));
+        add(textIdMulta, new AbsoluteConstraints(420, 220, 100, 30));
 
         JLabel labelFinMulta = new JLabel();
         labelFinMulta.setFont(new Font("Segoe UI", Font.PLAIN, 17));
         labelFinMulta.setText("Termino de la multa:");
-        add(labelFinMulta, new AbsoluteConstraints(370, 270, 170, 25));
+        add(labelFinMulta, new AbsoluteConstraints(420, 270, 170, 25));
 
         textFinMulta = new JTextField();
         textFinMulta.setFont(new Font("Segoe UI", Font.PLAIN, 17));
         textFinMulta.setEditable(false);
-        add(textFinMulta, new AbsoluteConstraints(370, 300, 150, 30));
+        add(textFinMulta, new AbsoluteConstraints(420, 300, 150, 30));
 
         JLabel labelMotivo = new JLabel();
         labelMotivo.setFont(new Font("Segoe UI", Font.PLAIN, 17));
         labelMotivo.setText("Motivo:");
-        add(labelMotivo, new AbsoluteConstraints(370, 350, 70, 25));
+        add(labelMotivo, new AbsoluteConstraints(420, 350, 70, 25));
 
         textMotivo = new JTextField();
         textMotivo.setFont(new Font("Segoe UI", Font.PLAIN, 17));
         textMotivo.setEditable(false);
-        add(textMotivo, new AbsoluteConstraints(370, 380, 200, 30));
+        add(textMotivo, new AbsoluteConstraints(420, 380, 200, 30));
     }
 
     private void buscarDatos(){
 
+        String dni = textDIN.getText();
+
+        PrestamoController prestamoController = new PrestamoController();
+        Prestamo prestamo = prestamoController.buscarPrestamoPorAlumno(dni);
+
+        if (prestamo == null) {
+            JOptionPane.showMessageDialog(null, "El alumno no tiene prestamos activos.");
+        } else {
+            textIDPrestamo.setText(prestamo.getId().toString());
+            textFechaPrestamo.setText(prestamo.getFechaSolicitud().toString());
+            textFechaEntrega.setText(prestamo.getFechaEntrega().toString());
+            textLibroTitulo.setText(prestamo.getLibro().getTitulo());
+        }
+
+        MultaController multaController = new MultaController();
+        Multa multa = multaController.buscarMulta(dni);
+
+        if (multa == null) {
+            JOptionPane.showMessageDialog(null, "El alumno no tiene multas.");
+        } else {
+            textMotivo.setText(multa.getMotivo());
+            textFinMulta.setText(multa.getFinMulta().toString());
+            textIdMulta.setText(multa.getId().toString());
+        }
+
     }
 
     private void limpiarCampos() {
-        textFechaEntrega.setText("");
-        textMotivo.setText("");
-        textFinMulta.setText("");
-        textIdMulta.setText("");
-        textFechaPrestamo.setText("");
-        textIDLibro.setText("");
-        textIDPrestamo.setText("");
         textDIN.setText("");
+        textLibroTitulo.setText("");
+        textIdMulta.setText("");
+        textFechaEntrega.setText("");
+        textFechaPrestamo.setText("");
+        textFinMulta.setText("");
+        textIDPrestamo.setText("");
+        textMotivo.setText("");
+    }
+
+    private void actualizarMultas(){
+
     }
 }

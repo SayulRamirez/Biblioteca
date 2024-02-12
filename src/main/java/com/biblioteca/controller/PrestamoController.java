@@ -8,7 +8,6 @@ import com.biblioteca.services.interfaces.PrestamoService;
 
 import javax.swing.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PrestamoController {
@@ -36,39 +35,46 @@ public class PrestamoController {
     }
 
     public String[] buscarPrestamoPorFolio(String folio) {
-        long folioPrestamo;
-        try {
-            folioPrestamo = Long.parseLong(folio);
-        } catch (NumberFormatException e) {
-            return null;
-        }
+        Long folioPrestamo = isLong(folio);
+        if (folioPrestamo == null) return null;
 
         return prestamoService.buscarPrestamoPorFolio(folioPrestamo);
     }
 
     public int actualizarPrestamo(String folio, boolean seleccionado, String motivo, int posicionMotivo, LocalDate fechaEntrega) {
 
-        long folioLong;
         int resultado = 0;
-
-        try {
-            folioLong = Long.parseLong(folio);
-        } catch (NumberFormatException e) {
-            return 0;
-        }
+        Long folioPrestamo = isLong(folio);
 
         if (seleccionado) {
             switch (posicionMotivo){
-                case 0 -> resultado = prestamoService.actualizarPrestamoMultaUno(folioLong, motivo, fechaEntrega);
-                case 1 -> resultado = prestamoService.actualizarPrestamoMultaDos(folioLong, motivo, fechaEntrega);
-                case 2 -> resultado = prestamoService.actualizarPrestamoMultaTres(folioLong, motivo, fechaEntrega);
+                case 0 -> resultado = prestamoService.actualizarPrestamoMultaUno(folioPrestamo, motivo, fechaEntrega);
+                case 1 -> resultado = prestamoService.actualizarPrestamoMultaDos(folioPrestamo, motivo, fechaEntrega);
+                case 2 -> resultado = prestamoService.actualizarPrestamoMultaTres(folioPrestamo, motivo, fechaEntrega);
             }
 
         } else {
 
-            resultado = prestamoService.actualizarPrestamo(folioLong, fechaEntrega);
+            resultado = prestamoService.actualizarPrestamo(folioPrestamo, fechaEntrega);
         }
 
         return resultado;
+    }
+
+    public Prestamo buscarPrestamoPorAlumno(String dni) {
+
+        Long dniAlumno = isLong(dni);
+
+        return prestamoService.buscarPrestamoPorAlumno(dniAlumno);
+    }
+
+    private static Long isLong(String folio) {
+        long folioPrestamo;
+        try {
+            folioPrestamo = Long.parseLong(folio);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+        return folioPrestamo;
     }
 }

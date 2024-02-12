@@ -18,4 +18,6 @@ public interface PrestamoDAO {
     int actualizarPrestamo(long folioLong);
 
     int actualizarPrestamoMulta(long folio, String motivo, LocalDate fechaInicial, LocalDate fehcaFinal);
+
+    PrestamoEntity buscarPrestamoPorDni(Long dni);
 }

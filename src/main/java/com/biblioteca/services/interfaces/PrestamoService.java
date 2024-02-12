@@ -2,6 +2,7 @@ package com.biblioteca.services.interfaces;
 
 import com.biblioteca.model.Alumno;
 import com.biblioteca.model.Libro;
+import com.biblioteca.model.Prestamo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,4 +24,6 @@ public interface PrestamoService {
     int actualizarPrestamoMultaDos(long folio, String motivo, LocalDate fechaEntrega);
 
     int actualizarPrestamoMultaTres(long folio, String motivo, LocalDate fechaEntrega);
+
+    Prestamo buscarPrestamoPorAlumno(Long dni);
 }
