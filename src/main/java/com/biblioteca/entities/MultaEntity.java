@@ -16,7 +16,7 @@ public class MultaEntity {
     @Column(name = "fin_multa")
     private LocalDate finMulta;
     @ManyToOne
-    @JoinColumn(name = "alumno")
+    @JoinColumn(name = "alumno_dni")
     private AlumnoEntity alumno;
     private Boolean estado;
 

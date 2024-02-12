@@ -49,6 +49,7 @@ public class PrestamoController {
     public int actualizarPrestamo(String folio, boolean seleccionado, String motivo, int posicionMotivo, LocalDate fechaEntrega) {
 
         long folioLong;
+        int resultado = 0;
 
         try {
             folioLong = Long.parseLong(folio);
@@ -58,16 +59,16 @@ public class PrestamoController {
 
         if (seleccionado) {
             switch (posicionMotivo){
-                case 0 -> prestamoService.actualizarPrestamoMultaUno(folioLong, motivo, fechaEntrega);
-                case 1 -> prestamoService.actualizarPrestamoMultaDos(folioLong, motivo, fechaEntrega);
-                case 2 -> prestamoService.actualizarPrestamoMultaTres(folioLong, motivo, fechaEntrega);
+                case 0 -> resultado = prestamoService.actualizarPrestamoMultaUno(folioLong, motivo, fechaEntrega);
+                case 1 -> resultado = prestamoService.actualizarPrestamoMultaDos(folioLong, motivo, fechaEntrega);
+                case 2 -> resultado = prestamoService.actualizarPrestamoMultaTres(folioLong, motivo, fechaEntrega);
             }
 
         } else {
 
-            return prestamoService.actualizarPrestamo(folioLong, fechaEntrega);
+            resultado = prestamoService.actualizarPrestamo(folioLong, fechaEntrega);
         }
 
-        return 0;
+        return resultado;
     }
 }

@@ -99,7 +99,9 @@ public class PrestamoServiceImpl implements PrestamoService {
         long actual = fechaInicial.toEpochDay();
         long entrega = fechaEntrega.toEpochDay();
 
-        int diferencia = (int) (entrega - actual);
+        int diferencia = (int) (actual - entrega);
+
+        System.out.println(diferencia);
 
         if (diferencia <= 3) {
             JOptionPane.showMessageDialog(null, "Algo anda mal, revisa la fechas por favor!!");
@@ -113,15 +115,8 @@ public class PrestamoServiceImpl implements PrestamoService {
 
     @Override
     public int actualizarPrestamoMultaTres(long folio, String motivo, LocalDate fechaEntrega) {
-        LocalDate fechaInicial = LocalDate.now();
-        long actual = fechaInicial.toEpochDay();
-        long entrega = fechaEntrega.toEpochDay();
-        int diferencia = (int) (entrega - actual);
 
-        if (diferencia < 1) {
-            JOptionPane.showMessageDialog(null, "Algo anda mal, revisa las fechas por favor!!");
-            throw new RuntimeException();
-        }
+        LocalDate fechaInicial = LocalDate.now();
 
         LocalDate fechaFinal = fechaInicial.plusDays(15);
 

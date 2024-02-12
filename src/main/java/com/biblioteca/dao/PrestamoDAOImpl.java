@@ -111,8 +111,13 @@ public class PrestamoDAOImpl implements PrestamoDAO {
 
             prestamoEntity.setEstado(false);
 
+            LibroEntity libro = prestamoEntity.getLibro();
+            Integer existencias = libro.getNumeroExistencias();
+            libro.setNumeroExistencias(existencias + 1);
+
             manager.getTransaction().begin();
 
+            manager.merge(libro);
             manager.merge(prestamoEntity);
 
             manager.getTransaction().commit();
@@ -138,15 +143,21 @@ public class PrestamoDAOImpl implements PrestamoDAO {
             prestamoEntity.setEstado(false);
 
             AlumnoEntity alumno = prestamoEntity.getAlumno();
+            LibroEntity libro = prestamoEntity.getLibro();
+
+            Integer existencias = libro.getNumeroExistencias();
+            libro.setNumeroExistencias(existencias + 1);
 
             MultaEntity multaEntity = new MultaEntity(null, motivo, fechaInicial, fehcaFinal, alumno);
 
             manager.getTransaction().begin();
 
+            manager.merge(libro);
             manager.merge(prestamoEntity);
             manager.persist(multaEntity);
 
             manager.getTransaction().commit();
+            return 1;
         } catch (IllegalArgumentException | TransactionRequiredException | EntityExistsException | RollbackException e) {
             System.out.println("Ocurrio un error: " + e.getMessage());
             manager.getTransaction().rollback();
@@ -154,7 +165,6 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         } finally {
             manager.close();
         }
-        return 1;
     }
 
     private List<String[]> buscarPrestamoPorParametro(String parametro, String procedure) {
