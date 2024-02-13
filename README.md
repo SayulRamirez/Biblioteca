@@ -46,35 +46,35 @@ ___
 
 * :mortar_board: Autenticar que el alumno este registrado en el sistema de la biblioteca.
 
-![Autenticación del alumno]() 
-
+![Autenticación del alumno](https://github.com/SayulRamirez/Biblioteca/assets/131827632/935c4ce6-5a1c-4401-ac05-1c9c818575f4)
+ 
 * :confused: Estado del alumno
   1. Estado de los prestamos (si tiene o no activos).  
   2. Estado de las multas (si tiene o no).
   3. Actualizar las multas (si ya expiro).
 
-![Estado del alumno]()
+![estado](https://github.com/SayulRamirez/Biblioteca/assets/131827632/1ad57367-d24d-4a7a-b7e3-ede9dea5342f)
 
 * :speech_balloon: Cosulta de libros por:
   1. Apellido del autor.
   2. Nombre del autor.
   3. Titulo del libro.
 
-![Consulta de libros]()
+![libros](https://github.com/SayulRamirez/Biblioteca/assets/131827632/b082d2fa-f94f-47ea-a481-87dc804f0971)
 
 * :speech_balloon: Consulta del prestamo de un libro para consultar cuando estara disponible 
 en caso de que no se encuentre por:
    1. Id del libro.
    2. Titulo del libro.
 
-![Consulta del prestamo del libro]()
+![prestamos](https://github.com/SayulRamirez/Biblioteca/assets/131827632/61880b92-4c65-4d65-9ba5-3809e2f0a83c)
 
 * :blue_book: Realizar el prestamo del libro.
   1. No se realizará el prestamo si el alumno no esta registrado en el sistema.
   2. No se realizará el prestamo si el alumno tiene multas activas.
   3. Solo se realizara el prestamo si el alumno no otro prestamo o multa.
 
-![Realizar prestamo]()
+![prestamo](https://github.com/SayulRamirez/Biblioteca/assets/131827632/a80373fd-035a-4265-97fb-e5f3eff59d4a)
 
 * :green_book: Devolución del libro.
   1. Si lo devuelve con tres días de retrazó se aplicara una multa automaticamente.
@@ -82,7 +82,8 @@ en caso de que no se encuentre por:
   3. Y si se entrega en mal estado se aplicara la multa mayor.
   4. En caso contrario se hará la devolución sin problema y el alumno podrá solicitar otro prestamo
 
-![Devolición del libro]()
+![devolucion](https://github.com/SayulRamirez/Biblioteca/assets/131827632/96508f56-b1ef-4775-8a25-dd177c585c59)
+
 
 
 
