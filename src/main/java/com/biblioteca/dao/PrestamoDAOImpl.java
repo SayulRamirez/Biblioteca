@@ -16,6 +16,12 @@ import java.util.List;
 @SuppressWarnings("all")
 public class PrestamoDAOImpl implements PrestamoDAO {
 
+    private EntityManager manager;
+
+    public PrestamoDAOImpl() {
+        manager = PersistenceHib.getEntityManager();
+    }
+
     @Override
     public Long realizarPrestamo(PrestamoEntity prestamoEntity) {
         Long dni = prestamoEntity.getAlumno().getDni();
@@ -24,10 +30,7 @@ public class PrestamoDAOImpl implements PrestamoDAO {
 
         Long folio;
 
-        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
-
         try {
-
             manager.getTransaction().begin();
 
             manager.persist(prestamoEntity);
@@ -47,17 +50,13 @@ public class PrestamoDAOImpl implements PrestamoDAO {
             manager.getTransaction().rollback();
             System.out.println("Ocurrio un error: " + e.getMessage());
             return null;
-        } finally {
-            manager.close();
         }
-
         return folio;
     }
 
     @Override
     public List<String[]> buscarPrestamoPorID(Long parametro) {
 
-        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
         List<String[]> prestamos = new ArrayList<>();
 
         try {
@@ -83,15 +82,12 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println(e.getMessage());
 
-        } finally {
-            manager.close();
         }
         return prestamos;
     }
 
     @Override
     public List<String[]> buscarPrestamoPorTitulo(String parametro) {
-        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
         List<String[]> prestamos = new ArrayList<>();
 
         try {
@@ -117,15 +113,12 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println(e.getMessage());
 
-        } finally {
-            manager.close();
         }
         return prestamos;
     }
 
     @Override
     public String[] buscarPrestamoPorFolio(long folioPrestamo) {
-        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
 
         try {
             StoredProcedureQuery query = manager.createStoredProcedureQuery("buscarPrestamoPorFolio");
@@ -157,16 +150,12 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println(e.getMessage());
 
-        } finally {
-            manager.close();
         }
         return null;
-
     }
 
     @Override
     public int actualizarPrestamo(long folioLong) {
-        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
 
         try {
             PrestamoEntity prestamoEntity = manager.find(PrestamoEntity.class, folioLong);
@@ -190,14 +179,11 @@ public class PrestamoDAOImpl implements PrestamoDAO {
             JOptionPane.showMessageDialog(null, "Ocurrio un error al actualizar el prestamo.");
             e.getStackTrace();
             throw new RuntimeException();
-        } finally {
-            manager.close();
         }
     }
 
     @Override
     public int actualizarPrestamoMulta(long folio, String motivo, LocalDate fechaInicial, LocalDate fehcaFinal) {
-        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
 
         try {
 
@@ -224,14 +210,11 @@ public class PrestamoDAOImpl implements PrestamoDAO {
             System.out.println("Ocurrio un error: " + e.getMessage());
             manager.getTransaction().rollback();
             return 0;
-        } finally {
-            manager.close();
         }
     }
 
     @Override
     public PrestamoEntity buscarPrestamoPorDni(Long dni) {
-        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
 
         try {
 
@@ -244,14 +227,11 @@ public class PrestamoDAOImpl implements PrestamoDAO {
 
         } catch (IllegalArgumentException | NoResultException e) {
             System.out.println(e.getMessage());
-        } finally {
-            manager.close();
         }
         return null;
     }
 
     private void puedeRealizarPrestamos(Long dni) {
-        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
 
         try {
             TypedQuery<PrestamoDAOImpl> query = manager.createQuery("select p.id from PrestamoEntity p where p.alumno.dni =: dni and p.estado = true", PrestamoDAOImpl.class);
@@ -276,8 +256,6 @@ public class PrestamoDAOImpl implements PrestamoDAO {
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-        } finally {
-            manager.close();
         }
     }
 }

@@ -12,11 +12,14 @@ import javax.swing.*;
 @SuppressWarnings("all")
 public class AlumnoDAOImpl implements AlumnoDAO {
 
+    private EntityManager manager;
+
+    public AlumnoDAOImpl() {
+        manager = PersistenceHib.getEntityManager();
+    }
+
     @Override
     public AlumnoEntity finbyDni(Long dni) {
-
-        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
-
 
         try {
             AlumnoEntity alumnoEntity = manager.find(AlumnoEntity.class, dni);
@@ -42,8 +45,6 @@ public class AlumnoDAOImpl implements AlumnoDAO {
         } catch (IllegalArgumentException e) {
 
             System.out.println(e.getMessage());
-        } finally {
-            manager.close();
         }
         return null;
     }

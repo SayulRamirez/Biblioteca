@@ -12,7 +12,12 @@ import java.util.List;
 @SuppressWarnings("all")
 public class LibroDAOImpl implements LibroDAO {
 
+    private EntityManager manager;
     private List<LibroEntity> libros;
+
+    public LibroDAOImpl() {
+        manager = PersistenceHib.getEntityManager();
+    }
 
     @Override
     public List<LibroEntity> buscarLibrosPorApellido(String apellido) {
@@ -38,8 +43,6 @@ public class LibroDAOImpl implements LibroDAO {
     @Override
     public LibroEntity buscarLibroPorID(Long id) {
 
-        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
-
         TypedQuery<LibroEntity> query = manager.createQuery(
                 "SELECT l FROM LibroEntity l JOIN FETCH l.autor WHERE l.id =: libroId", LibroEntity.class);
 
@@ -63,7 +66,6 @@ public class LibroDAOImpl implements LibroDAO {
      * @return Lista de {@link LibroEntity}
      */
     private List<LibroEntity> buscarLibroPorParametro(String parametro, String procedure) {
-        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
 
         try {
             StoredProcedureQuery query = manager.createStoredProcedureQuery(procedure);
@@ -89,8 +91,6 @@ public class LibroDAOImpl implements LibroDAO {
 
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println(e.getMessage());
-        } finally {
-            manager.close();
         }
         return libros;
     }

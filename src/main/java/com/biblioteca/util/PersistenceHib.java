@@ -12,7 +12,7 @@ public class PersistenceHib {
 
     private PersistenceHib() {}
 
-    public static EntityManagerFactory getEntityManagerFactory() {
+    private static EntityManagerFactory getEntityManagerFactory() {
 
         if (emf == null) {
 

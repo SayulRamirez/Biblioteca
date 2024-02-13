@@ -14,9 +14,14 @@ import java.time.LocalDate;
 @SuppressWarnings("all")
 public class MultaDAOImpl implements MultaDAO {
 
+    private EntityManager manager;
+
+    public MultaDAOImpl() {
+        manager = PersistenceHib.getEntityManager();
+    }
+
     @Override
     public MultaEntity buscarMultaPorAlumno(long dni) {
-        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
 
         try {
 
@@ -29,16 +34,12 @@ public class MultaDAOImpl implements MultaDAO {
 
         } catch (IllegalArgumentException | NoResultException e) {
             System.out.println(e.getMessage());
-        } finally {
-            manager.close();
         }
-
         return null;
     }
 
     @Override
     public void actualizarMultas(LocalDate ahora) {
-        EntityManager manager = PersistenceHib.getEntityManagerFactory().createEntityManager();
 
         try {
             Query query = manager.createQuery("update MultaEntity m set m.estado = true where m.finMulta <=: fecha");
@@ -55,8 +56,6 @@ public class MultaDAOImpl implements MultaDAO {
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "Ocurrio un error");
             manager.getTransaction().rollback();
-        } finally {
-            manager.close();
         }
     }
 }
