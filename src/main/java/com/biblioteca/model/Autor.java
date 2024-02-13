@@ -1,14 +1,11 @@
 package com.biblioteca.model;
 
+@SuppressWarnings("all")
 public class Autor {
 
     private Long id;
     private String nombre;
     private String apellido;
-
-    public Autor(Long id) {
-        this.id = id;
-    }
 
     public Autor(Long id, String nombre, String apellido) {
         this.id = id;
@@ -28,15 +25,7 @@ public class Autor {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getApellido() {
         return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
     }
 }

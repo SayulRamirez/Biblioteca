@@ -3,6 +3,7 @@ package com.biblioteca.entities;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@SuppressWarnings("all")
 @Entity
 @Table(name = "multas")
 public class MultaEntity {

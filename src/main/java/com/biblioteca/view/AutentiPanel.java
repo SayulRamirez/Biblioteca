@@ -10,14 +10,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+@SuppressWarnings("all")
 public class AutentiPanel extends JPanel {
 
     private JTextField textIngresoDNI;
     private JLabel labelRespuesta;
 
-    /**
-     * Creates new form EstadoPanel
-     */
     public AutentiPanel() {
         initComponents();
     }

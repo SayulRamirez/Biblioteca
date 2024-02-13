@@ -12,15 +12,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
+@SuppressWarnings("all")
 public class ConsultaLibro extends javax.swing.JPanel {
 
     private JTextField textParametroBusqueda;
     private JComboBox<String> comboOpciones;
     private DefaultTableModel modeloLibros;
 
-    /**
-     * Creates new form ConsultaLibro
-     */
     public ConsultaLibro() {
         initComponents();
     }

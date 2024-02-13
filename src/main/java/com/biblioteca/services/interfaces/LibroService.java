@@ -4,6 +4,7 @@ import com.biblioteca.model.Libro;
 
 import java.util.List;
 
+@SuppressWarnings("all")
 public interface LibroService {
 
     /**

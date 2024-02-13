@@ -3,6 +3,7 @@ package com.biblioteca.entities;
 import javax.persistence.*;
 import java.util.Set;
 
+@SuppressWarnings("all")
 @Entity
 @Table(name = "autores")
 public class AutorEntity {

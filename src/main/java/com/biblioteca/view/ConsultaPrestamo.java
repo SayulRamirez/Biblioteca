@@ -5,12 +5,12 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
+@SuppressWarnings("all")
 public class ConsultaPrestamo extends JPanel {
 
     private JComboBox<String> comboOpciones;

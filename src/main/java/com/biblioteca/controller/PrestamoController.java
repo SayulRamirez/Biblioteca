@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@SuppressWarnings("all")
 public class PrestamoController {
 
     private final PrestamoService prestamoService;

@@ -1,5 +1,6 @@
 package com.biblioteca.model;
 
+@SuppressWarnings("all")
 public class Libro {
 
     private Long id;
@@ -37,15 +38,7 @@ public class Libro {
         return autor;
     }
 
-    public void setAutor(Autor autor) {
-        this.autor = autor;
-    }
-
     public Integer getNumeroExistencias() {
         return numeroExistencias;
-    }
-
-    public void setNumeroExistencias(Integer numeroExistencias) {
-        this.numeroExistencias = numeroExistencias;
     }
 }

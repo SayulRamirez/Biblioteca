@@ -3,17 +3,16 @@ package com.biblioteca.dao;
 import com.biblioteca.dao.interfaces.LibroDAO;
 import com.biblioteca.entities.AutorEntity;
 import com.biblioteca.entities.LibroEntity;
-import com.biblioteca.model.Libro;
 import com.biblioteca.util.PersistenceHib;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("all")
 public class LibroDAOImpl implements LibroDAO {
 
     private List<LibroEntity> libros;
-
 
     @Override
     public List<LibroEntity> buscarLibrosPorApellido(String apellido) {
@@ -95,5 +94,4 @@ public class LibroDAOImpl implements LibroDAO {
         }
         return libros;
     }
-
 }

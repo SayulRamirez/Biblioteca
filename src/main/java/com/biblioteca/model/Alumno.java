@@ -1,5 +1,6 @@
 package com.biblioteca.model;
 
+@SuppressWarnings("all")
 public class Alumno {
 
     private Long dni;
@@ -31,31 +32,14 @@ public class Alumno {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getApellido() {
         return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
     }
 
     public String getPeriodo() {
         return periodo;
     }
 
-    public void setPeriodo(String periodo) {
-        this.periodo = periodo;
-    }
+    public String getGrupo() {return grupo;}
 
-    public String getGrupo() {
-        return grupo;
-    }
-
-    public void setGrupo(String grupo) {
-        this.grupo = grupo;
-    }
 }

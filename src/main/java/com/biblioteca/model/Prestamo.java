@@ -2,6 +2,7 @@ package com.biblioteca.model;
 
 import java.time.LocalDate;
 
+@SuppressWarnings("all")
 public class Prestamo {
 
     private Long id;
@@ -11,7 +12,6 @@ public class Prestamo {
     private LocalDate fechaEntrega;
     private Boolean estado;
 
-    public Prestamo(){}
     public Prestamo(Long id, Alumno alumno, Libro libro, LocalDate fechaSolicitud, LocalDate fechaEntrega, Boolean estado) {
         this.id = id;
         this.alumno = alumno;
@@ -49,16 +49,8 @@ public class Prestamo {
         return fechaSolicitud;
     }
 
-    public void setFechaSolicitud(LocalDate fechaSolicitud) {
-        this.fechaSolicitud = fechaSolicitud;
-    }
-
     public LocalDate getFechaEntrega() {
         return fechaEntrega;
-    }
-
-    public void setFechaEntrega(LocalDate fechaEntrega) {
-        this.fechaEntrega = fechaEntrega;
     }
 
     public Boolean getEstado() {

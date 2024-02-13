@@ -11,6 +11,7 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@SuppressWarnings("all")
 public class DevolucionPanel extends javax.swing.JPanel {
 
     private JTextField textFolio;
@@ -21,9 +22,7 @@ public class DevolucionPanel extends javax.swing.JPanel {
     private JRadioButton radioMulta;
     private JComboBox<String> tipoMulta;
     private String folio;
-    /**
-     * Creates new form DevolucionPanel
-     */
+
     public DevolucionPanel() {
         initComponents();
     }

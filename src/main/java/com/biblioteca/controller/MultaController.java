@@ -4,6 +4,7 @@ import com.biblioteca.model.Multa;
 import com.biblioteca.services.MultaServiceImpl;
 import com.biblioteca.services.interfaces.MultaService;
 
+@SuppressWarnings("all")
 public class MultaController {
 
     private final MultaService multaService;

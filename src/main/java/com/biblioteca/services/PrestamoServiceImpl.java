@@ -10,14 +10,12 @@ import com.biblioteca.model.Alumno;
 import com.biblioteca.model.Libro;
 import com.biblioteca.model.Prestamo;
 import com.biblioteca.services.interfaces.PrestamoService;
-import net.bytebuddy.asm.Advice;
 
 import javax.swing.*;
 import java.time.LocalDate;
-import java.time.temporal.TemporalField;
-import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("all")
 public class PrestamoServiceImpl implements PrestamoService {
 
     private final PrestamoDAO prestamoDAO;
@@ -74,8 +72,7 @@ public class PrestamoServiceImpl implements PrestamoService {
 
         if (LocalDate.now().isBefore(fechaEntrega)) {
 
-            int filaActualizada = prestamoDAO.actualizarPrestamo(folioLong);
-            return filaActualizada;
+            return prestamoDAO.actualizarPrestamo(folioLong);
         }
         return 0;
     }

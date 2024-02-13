@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import javax.swing.*;
 import java.time.LocalDate;
 
+@SuppressWarnings("all")
 public class MultaDAOImpl implements MultaDAO {
 
     @Override
@@ -28,6 +29,8 @@ public class MultaDAOImpl implements MultaDAO {
 
         } catch (IllegalArgumentException | NoResultException e) {
             System.out.println(e.getMessage());
+        } finally {
+            manager.close();
         }
 
         return null;

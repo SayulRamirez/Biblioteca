@@ -2,6 +2,7 @@ package com.biblioteca.model;
 
 import java.time.LocalDate;
 
+@SuppressWarnings("all")
 public class Multa {
 
     private Long id;
@@ -11,7 +12,6 @@ public class Multa {
     private Alumno alumno;
     private Boolean estado;
 
-    public Multa(){}
 
     public Multa(Long id, String motivo, LocalDate inicioMulta, LocalDate finMulta, Alumno alumno, Boolean estado) {
         this.id = id;
@@ -34,24 +34,8 @@ public class Multa {
         return motivo;
     }
 
-    public void setMotivo(String motivo) {
-        this.motivo = motivo;
-    }
-
-    public LocalDate getInicioMulta() {
-        return inicioMulta;
-    }
-
-    public void setInicioMulta(LocalDate inicioMulta) {
-        this.inicioMulta = inicioMulta;
-    }
-
     public LocalDate getFinMulta() {
         return finMulta;
-    }
-
-    public void setFinMulta(LocalDate finMulta) {
-        this.finMulta = finMulta;
     }
 
     public Alumno getAlumno() {

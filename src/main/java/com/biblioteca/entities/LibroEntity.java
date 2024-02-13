@@ -1,9 +1,9 @@
 package com.biblioteca.entities;
 
-
 import javax.persistence.*;
 import java.util.Set;
 
+@SuppressWarnings("all")
 @Entity
 @Table(name = "libros")
 public class LibroEntity {

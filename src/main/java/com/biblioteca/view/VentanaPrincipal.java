@@ -8,18 +8,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+@SuppressWarnings("all")
 public class VentanaPrincipal extends JFrame {
 
     private JPanel panelContenido;
-
-    /**
-     * Creates new form VentanaPrincipal
-     */
     public VentanaPrincipal() {
         initComponents();
     }
-
 
     private void initComponents() {
 
@@ -167,6 +165,14 @@ public class VentanaPrincipal extends JFrame {
         getContentPane().add(panelContenedor, new AbsoluteConstraints(0, 40, 890, 460));
 
         pack();
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                PersistenceHib.shutdown();
+                super.windowClosing(e);
+            }
+        });
     }
 
     private void panelAutentiMouseClicked() {
@@ -204,19 +210,5 @@ public class VentanaPrincipal extends JFrame {
         panelContenido.add(panel);
         panelContenido.revalidate();
         panelContenido.repaint();
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                PersistenceHib.getEntityManagerFactory().createEntityManager();
-                new VentanaPrincipal().setVisible(true);
-            }
-        });
     }
 }

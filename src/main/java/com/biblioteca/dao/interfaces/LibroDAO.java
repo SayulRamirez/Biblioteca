@@ -4,6 +4,7 @@ import com.biblioteca.entities.LibroEntity;
 
 import java.util.List;
 
+@SuppressWarnings("all")
 public interface LibroDAO {
 
     /**

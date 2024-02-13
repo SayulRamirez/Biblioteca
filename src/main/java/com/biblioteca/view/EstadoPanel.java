@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+@SuppressWarnings("all")
 public class EstadoPanel extends JPanel {
 
     private JTextField textDIN;

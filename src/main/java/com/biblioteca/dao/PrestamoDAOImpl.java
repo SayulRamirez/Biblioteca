@@ -6,8 +6,6 @@ import com.biblioteca.entities.LibroEntity;
 import com.biblioteca.entities.MultaEntity;
 import com.biblioteca.entities.PrestamoEntity;
 import com.biblioteca.util.PersistenceHib;
-import com.sun.xml.bind.v2.runtime.output.SAXOutput;
-import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
 import javax.swing.*;
@@ -15,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("all")
 public class PrestamoDAOImpl implements PrestamoDAO {
 
     @Override
@@ -151,7 +150,7 @@ public class PrestamoDAOImpl implements PrestamoDAO {
                                     String.valueOf(array[4])}));
 
 
-            if (prestamos.size() == 0) return null;
+            if (prestamos.isEmpty()) return null;
 
             return prestamos.get(0);
 

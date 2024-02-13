@@ -2,6 +2,7 @@ package com.biblioteca.dao.interfaces;
 
 import com.biblioteca.entities.AlumnoEntity;
 
+@SuppressWarnings("all")
 public interface AlumnoDAO {
 
     /**

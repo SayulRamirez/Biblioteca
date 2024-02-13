@@ -6,6 +6,7 @@ import com.biblioteca.services.interfaces.AlumnoServices;
 
 import javax.swing.*;
 
+@SuppressWarnings("all")
 public class AlumnoController {
 
     private final AlumnoServices alumnoServices;

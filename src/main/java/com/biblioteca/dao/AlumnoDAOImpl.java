@@ -9,6 +9,7 @@ import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
 import javax.swing.*;
 
+@SuppressWarnings("all")
 public class AlumnoDAOImpl implements AlumnoDAO {
 
     @Override
@@ -32,7 +33,7 @@ public class AlumnoDAOImpl implements AlumnoDAO {
 
             boolean execute = query.execute();
 
-            if (execute == false) {
+            if (!execute) {
                 JOptionPane.showMessageDialog(null, "El alumno tiene multas, no puede realizar prestamos");
                 throw new RuntimeException();
             }

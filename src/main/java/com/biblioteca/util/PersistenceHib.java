@@ -4,9 +4,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+@SuppressWarnings("all")
 public class PersistenceHib {
 
     private static EntityManagerFactory emf;
+    private static EntityManager manager;
 
     private PersistenceHib() {}
 
@@ -18,6 +20,15 @@ public class PersistenceHib {
         }
 
         return emf;
+    }
+
+    public static EntityManager getEntityManager() {
+
+        if (manager == null) {
+            return manager = getEntityManagerFactory().createEntityManager();
+        }
+
+        return manager;
     }
 
     public static void shutdown() {

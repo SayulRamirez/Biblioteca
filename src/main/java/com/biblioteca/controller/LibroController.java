@@ -7,6 +7,7 @@ import com.biblioteca.services.interfaces.LibroService;
 import javax.swing.*;
 import java.util.List;
 
+@SuppressWarnings("all")
 public class LibroController {
 
     private final LibroService libroService;
